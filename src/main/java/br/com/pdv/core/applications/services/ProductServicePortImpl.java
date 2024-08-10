@@ -15,19 +15,28 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @AllArgsConstructor
 public class ProductServicePortImpl implements ProductServicePort {
-	
+
 	private final CategoryRepository categoryRepository;
 	private final ProductRepository productRepository;
 
 	@Override
 	public void save(Product product, ProductRequest request) {
-		 var category = categoryRepository.findById(request.getIdCategory())
-		 .orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
+		var category = categoryRepository.findById(request.getIdCategory())
+				.orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
+
+		product.setCategory(category);
+		productRepository.save(product);
+
+		log.info("Product Saved {}", product);
+	}
+
+	@Override
+	public void delete(Long idProduct) {
+		var product = productRepository.findById(idProduct)
+				.orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
 		
-		 product.setCategory(category);
-		 productRepository.save(product);
-		 
-		 log.info("Product Saved {}", product);
+		productRepository.delete(product);
+
 	}
 
 }

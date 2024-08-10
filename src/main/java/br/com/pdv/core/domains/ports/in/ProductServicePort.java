@@ -6,5 +6,6 @@ import br.com.pdv.adapter.driven.infra.request.ProductRequest;
 public interface ProductServicePort {
 	
 	void save(Product product, ProductRequest request);
+	void delete(Long idProduct);
 
 }
