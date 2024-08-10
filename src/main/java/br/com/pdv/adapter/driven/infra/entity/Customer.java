@@ -1,13 +1,11 @@
 package br.com.pdv.adapter.driven.infra.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Set;
 
 
 @Entity
@@ -24,5 +22,8 @@ public class Customer {
     private String name;
     private String email;
     private String document;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders;
 
 }

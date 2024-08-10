@@ -29,6 +29,10 @@ public class Order {
 
     private Double totalValue;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+    
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<ItemOrder> itens;
 }
