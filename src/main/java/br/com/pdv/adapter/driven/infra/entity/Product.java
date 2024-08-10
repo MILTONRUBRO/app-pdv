@@ -2,18 +2,21 @@ package br.com.pdv.adapter.driven.infra.entity;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
 @Getter
 @Setter
 @ToString
+@Entity
+@Table(name = "product")
 public class Product {
+
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
 	private Long id;
 	private String name;
 	private String description;
