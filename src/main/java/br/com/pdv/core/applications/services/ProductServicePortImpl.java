@@ -1,0 +1,33 @@
+package br.com.pdv.core.applications.services;
+
+import org.springframework.stereotype.Service;
+
+import br.com.pdv.adapter.driven.infra.entity.Product;
+import br.com.pdv.adapter.driven.infra.request.ProductRequest;
+import br.com.pdv.core.applications.exceptions.NotFoundException;
+import br.com.pdv.core.applications.ports.repositories.CategoryRepository;
+import br.com.pdv.core.applications.ports.repositories.ProductRepository;
+import br.com.pdv.core.domains.ports.in.ProductServicePort;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Service
+@Log4j2
+@AllArgsConstructor
+public class ProductServicePortImpl implements ProductServicePort {
+	
+	private final CategoryRepository categoryRepository;
+	private final ProductRepository productRepository;
+
+	@Override
+	public void save(Product product, ProductRequest request) {
+		 var category = categoryRepository.findById(request.getIdCategory())
+		 .orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
+		
+		 product.setCategory(category);
+		 productRepository.save(product);
+		 
+		 log.info("Product Saved {}", product);
+	}
+
+}

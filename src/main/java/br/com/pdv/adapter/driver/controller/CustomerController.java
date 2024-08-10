@@ -27,7 +27,7 @@ public class CustomerController {
 	private final CustomerServicePort customerServicePort;
 
 	@PostMapping
-	public Customer salvarUsuario(@RequestBody CustomerRequest request) {
+	public Customer saveCustomer(@RequestBody CustomerRequest request) {
 		log.info("POST Customer Request: {}", request);
 		var customer = customerMapper.requestMapper(request);
 		return customerServicePort.save(customer);
