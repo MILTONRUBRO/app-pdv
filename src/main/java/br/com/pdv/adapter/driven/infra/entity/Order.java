@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -37,6 +36,21 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payment> payments;
 
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<ItemOrder> itens;
+
+    @Override
+    public String toString() {
+
+        return "Order{" +
+                "id=" + id +
+                ", data=" + data +
+                ", status=" + status +
+                ", totalValue=" + totalValue +
+                ", customer=" + customer.getId() +
+                ", payments=" + payments +
+                ", itens=" + itens +
+                '}';
+    }
 }

@@ -25,10 +25,8 @@ public class ProductServicePortImpl implements ProductServicePort {
 	public void save(Product product, ProductRequest request) {
 		var category = categoryRepository.findById(request.getIdCategory())
 				.orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
-
 		product.setCategory(category);
 		productRepository.save(product);
-
 		log.info("Product Saved {}", product);
 	}
 
