@@ -8,5 +8,6 @@ public interface ProductServicePort {
 	void save(Product product, ProductRequest request);
 	void delete(Long idProduct);
 	void update(ProductRequest request, Long idProduct);
+	Product findById(Long idProduct)  ;
 
 }

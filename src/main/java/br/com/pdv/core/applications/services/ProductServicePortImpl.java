@@ -54,5 +54,12 @@ public class ProductServicePortImpl implements ProductServicePort {
 		productRepository.save(newProduct);
 	}
 
+	@Override
+	public Product findById(Long idProduct) {
+		return productRepository.findById(idProduct)
+				.orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
+
+	}
+
 
 }

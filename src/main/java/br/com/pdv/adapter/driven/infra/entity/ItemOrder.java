@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "item_order")
 public class ItemOrder {
@@ -27,5 +28,16 @@ public class ItemOrder {
     private int quantity;
 
     @Column(name = "total_value")
-    private Double totalValue;
+    private BigDecimal totalValue;
+
+    @Override
+    public String toString() {
+        return "ItemOrder{" +
+                "id=" + id +
+                ", order=" + order.getId() +
+                ", produto=" + produto.getId() +
+                ", quantity=" + quantity +
+                ", totalValue=" + totalValue +
+                '}';
+    }
 }
