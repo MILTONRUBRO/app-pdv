@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.pdv.adapter.driven.infra.entity.Product;
 import br.com.pdv.adapter.driven.infra.request.ProductRequest;
+import br.com.pdv.adapter.driven.infra.response.ProductResponse;
 
 @Component
 public class ProductMapper {
@@ -14,5 +15,12 @@ public class ProductMapper {
 		BeanUtils.copyProperties(request, product);
 		return product;
 	}
+	
+	public ProductResponse responseMapper(Product product) {
+		var productResponse = new ProductResponse();
+        BeanUtils.copyProperties(product, productResponse);
+		return productResponse;
+	}
+	
 
 }

@@ -27,10 +27,10 @@ public class CustomerController {
 	private final CustomerServicePort customerServicePort;
 
 	@PostMapping
-	public Customer saveCustomer(@RequestBody CustomerRequest request) {
+	public ResponseEntity<Customer> saveCustomer(@RequestBody CustomerRequest request) {
 		log.info("POST Customer Request: {}", request);
 		var customer = customerMapper.requestMapper(request);
-		return customerServicePort.save(customer);
+		return ResponseEntity.ok(customerServicePort.save(customer));
 	}
 
 	@GetMapping("/{documentNumber}")
