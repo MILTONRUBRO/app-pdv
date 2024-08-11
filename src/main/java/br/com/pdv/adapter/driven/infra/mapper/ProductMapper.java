@@ -4,8 +4,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.pdv.adapter.driven.infra.entity.Product;
-import br.com.pdv.adapter.driven.infra.request.ProductRequest;
-import br.com.pdv.adapter.driven.infra.response.ProductResponse;
+import br.com.pdv.adapter.driven.infra.dto.request.ProductRequest;
+import br.com.pdv.adapter.driven.infra.dto.response.ProductResponse;
 
 @Component
 public class ProductMapper {

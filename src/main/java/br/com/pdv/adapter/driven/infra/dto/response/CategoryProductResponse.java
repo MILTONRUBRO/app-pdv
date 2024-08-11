@@ -1,4 +1,4 @@
-package br.com.pdv.adapter.driven.infra.response;
+package br.com.pdv.adapter.driven.infra.dto.response;
 
 import java.util.List;
 

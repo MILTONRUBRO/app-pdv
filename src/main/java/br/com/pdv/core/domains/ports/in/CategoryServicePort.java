@@ -1,6 +1,6 @@
 package br.com.pdv.core.domains.ports.in;
 
-import br.com.pdv.adapter.driven.infra.response.CategoryProductResponse;
+import br.com.pdv.adapter.driven.infra.dto.response.CategoryProductResponse;
 
 public interface CategoryServicePort {
 	

@@ -1,4 +1,4 @@
-package br.com.pdv.adapter.driven.infra.request;
+package br.com.pdv.adapter.driven.infra.dto.request;
 
 import java.math.BigDecimal;
 

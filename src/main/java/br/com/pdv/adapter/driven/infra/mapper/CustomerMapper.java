@@ -4,8 +4,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.pdv.adapter.driven.infra.entity.Customer;
-import br.com.pdv.adapter.driven.infra.request.CustomerRequest;
-import br.com.pdv.adapter.driven.infra.response.CustomerResponse;
+import br.com.pdv.adapter.driven.infra.dto.request.CustomerRequest;
+import br.com.pdv.adapter.driven.infra.dto.response.CustomerResponse;
 
 @Component
 public class CustomerMapper {

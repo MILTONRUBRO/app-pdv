@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.pdv.adapter.driven.infra.entity.Product;
 import br.com.pdv.adapter.driven.infra.mapper.ProductMapper;
-import br.com.pdv.adapter.driven.infra.request.ProductRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.ProductRequest;
 import br.com.pdv.core.applications.exceptions.NotFoundException;
 import br.com.pdv.core.applications.ports.repositories.CategoryRepository;
 import br.com.pdv.core.applications.ports.repositories.ProductRepository;

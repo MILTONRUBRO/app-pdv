@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pdv.adapter.driven.infra.mapper.ProductMapper;
-import br.com.pdv.adapter.driven.infra.request.ProductRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.ProductRequest;
 import br.com.pdv.core.domains.ports.in.ProductServicePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

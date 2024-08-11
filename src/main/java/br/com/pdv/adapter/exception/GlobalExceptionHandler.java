@@ -1,6 +1,7 @@
 package br.com.pdv.adapter.exception;
 
-import br.com.pdv.adapter.driven.infra.response.ErrorResponse;
+import br.com.pdv.adapter.driven.infra.dto.response.ErrorResponse;
+import br.com.pdv.core.applications.exceptions.InvalidEnumValueException;
 import br.com.pdv.core.applications.exceptions.InvalidQuantityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +25,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidEnumValueException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidEnumValueException(InvalidEnumValueException ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(ex.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+        errorResponse.setPath(request.getDescription(false));
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
 }

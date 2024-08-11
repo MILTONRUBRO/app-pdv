@@ -1,6 +1,6 @@
 package br.com.pdv.adapter.driver.controller;
 
-import br.com.pdv.adapter.driven.infra.request.ItemOrderRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.ItemOrderRequest;
 import br.com.pdv.core.domains.ports.in.ItemOrderServicePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

@@ -1,7 +1,7 @@
 package br.com.pdv.core.domains.ports.in;
 
 import br.com.pdv.adapter.driven.infra.entity.Product;
-import br.com.pdv.adapter.driven.infra.request.ProductRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.ProductRequest;
 
 public interface ProductServicePort {
 	

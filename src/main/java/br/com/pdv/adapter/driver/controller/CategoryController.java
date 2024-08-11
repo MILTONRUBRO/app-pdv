@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.pdv.adapter.driven.infra.response.CategoryProductResponse;
+import br.com.pdv.adapter.driven.infra.dto.response.CategoryProductResponse;
 import br.com.pdv.core.domains.ports.in.CategoryServicePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

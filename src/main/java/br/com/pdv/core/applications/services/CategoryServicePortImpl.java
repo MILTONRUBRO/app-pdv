@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.pdv.adapter.driven.infra.entity.Product;
 import br.com.pdv.adapter.driven.infra.mapper.ProductMapper;
-import br.com.pdv.adapter.driven.infra.response.CategoryProductResponse;
-import br.com.pdv.adapter.driven.infra.response.ProductResponse;
+import br.com.pdv.adapter.driven.infra.dto.response.CategoryProductResponse;
+import br.com.pdv.adapter.driven.infra.dto.response.ProductResponse;
 import br.com.pdv.core.applications.ports.repositories.ProductRepository;
 import br.com.pdv.core.domains.ports.in.CategoryServicePort;
 import lombok.AllArgsConstructor;

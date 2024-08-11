@@ -1,7 +1,6 @@
 package br.com.pdv.core.domains.ports.in;
 
-import br.com.pdv.adapter.driven.infra.request.ItemOrderRequest;
-import br.com.pdv.adapter.driven.infra.request.OrderRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.ItemOrderRequest;
 
 public interface ItemOrderServicePort {
 	

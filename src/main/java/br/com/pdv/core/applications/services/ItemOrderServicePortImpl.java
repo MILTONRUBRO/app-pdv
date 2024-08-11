@@ -1,13 +1,10 @@
 package br.com.pdv.core.applications.services;
 
 import br.com.pdv.adapter.driven.infra.entity.ItemOrder;
-import br.com.pdv.adapter.driven.infra.entity.OrderStatus;
 import br.com.pdv.adapter.driven.infra.entity.Product;
 import br.com.pdv.adapter.driven.infra.mapper.ItemOrderMapper;
-import br.com.pdv.adapter.driven.infra.request.ItemOrderRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.ItemOrderRequest;
 import br.com.pdv.core.applications.exceptions.InvalidQuantityException;
-import br.com.pdv.core.applications.exceptions.NotFoundException;
-import br.com.pdv.core.applications.ports.repositories.CustomerRepositoryPort;
 import br.com.pdv.core.applications.ports.repositories.ItemOrderRepositoryPort;
 import br.com.pdv.core.domains.ports.in.ItemOrderServicePort;
 import br.com.pdv.core.domains.ports.in.ProductServicePort;
@@ -16,7 +13,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Service
 @Log4j2

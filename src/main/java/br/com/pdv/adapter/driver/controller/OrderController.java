@@ -1,11 +1,9 @@
 package br.com.pdv.adapter.driver.controller;
 
-import br.com.pdv.adapter.driven.infra.mapper.OrderMapper;
-import br.com.pdv.adapter.driven.infra.mapper.ProductMapper;
-import br.com.pdv.adapter.driven.infra.request.OrderRequest;
-import br.com.pdv.adapter.driven.infra.request.ProductRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.OrderRequest;
+import br.com.pdv.adapter.driven.infra.dto.request.UpdateOrderStatusRequest;
 import br.com.pdv.core.domains.ports.in.OrderServicePort;
-import br.com.pdv.core.domains.ports.in.ProductServicePort;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +25,10 @@ public class OrderController {
 		return ResponseEntity.noContent().build();
 	}
 
-//	@DeleteMapping("/{idProduct}")
-//	public ResponseEntity<Void> deleteProduct(@PathVariable Long idProduct) {
-//		log.info("DELETE Product ID: {}", idProduct);
-//		productServicePort.delete(idProduct);
-//		return ResponseEntity.noContent().build();
-//	}
-//
-//	@PutMapping("/{idProduct}")
-//	public void updateProduct(@RequestBody ProductRequest request, @PathVariable Long idProduct) {
-//		log.info("UPDATE Product {} With ID: {}",request, idProduct);
-//		productServicePort.update(request, idProduct);
-//
-//	}
+	@PatchMapping("/{idOrder}")
+	public void updateOrderStatus(@PathVariable Long idOrder, @RequestBody @Valid UpdateOrderStatusRequest updateOrderStatusRequest) {
+		log.info("PATCH update status for Order ID: {}", idOrder);
+		orderServicePort.updateOrderStatus(idOrder, updateOrderStatusRequest.getStatus());
+	}
 
 }

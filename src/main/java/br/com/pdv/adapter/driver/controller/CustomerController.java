@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pdv.adapter.driven.infra.entity.Customer;
 import br.com.pdv.adapter.driven.infra.mapper.CustomerMapper;
-import br.com.pdv.adapter.driven.infra.request.CustomerRequest;
-import br.com.pdv.adapter.driven.infra.response.CustomerResponse;
+import br.com.pdv.adapter.driven.infra.dto.request.CustomerRequest;
+import br.com.pdv.adapter.driven.infra.dto.response.CustomerResponse;
 import br.com.pdv.core.domains.ports.in.CustomerServicePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
