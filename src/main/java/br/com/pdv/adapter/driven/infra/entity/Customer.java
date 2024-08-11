@@ -1,5 +1,6 @@
 package br.com.pdv.adapter.driven.infra.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +22,11 @@ public class Customer {
 
     private String name;
     private String email;
+
+    @Column(name = "document", nullable = false, unique = true)
     private String document;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Order> orders;
 

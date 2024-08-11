@@ -26,18 +26,5 @@ public class ItemOrderController {
 		return ResponseEntity.noContent().build();
 	}
 
-//	@DeleteMapping("/{idProduct}")
-//	public ResponseEntity<Void> deleteProduct(@PathVariable Long idProduct) {
-//		log.info("DELETE Product ID: {}", idProduct);
-//		productServicePort.delete(idProduct);
-//		return ResponseEntity.noContent().build();
-//	}
-//
-//	@PutMapping("/{idProduct}")
-//	public void updateProduct(@RequestBody ProductRequest request, @PathVariable Long idProduct) {
-//		log.info("UPDATE Product {} With ID: {}",request, idProduct);
-//		productServicePort.update(request, idProduct);
-//
-//	}
 
 }

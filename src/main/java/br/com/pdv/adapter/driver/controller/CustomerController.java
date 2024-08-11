@@ -1,5 +1,6 @@
 package br.com.pdv.adapter.driver.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import br.com.pdv.core.domains.ports.in.CustomerServicePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("/customers")
 @AllArgsConstructor
@@ -27,10 +30,12 @@ public class CustomerController {
 	private final CustomerServicePort customerServicePort;
 
 	@PostMapping
-	public ResponseEntity<Customer> saveCustomer(@RequestBody CustomerRequest request) {
+	public ResponseEntity<Void> saveCustomer(@RequestBody CustomerRequest request) {
 		log.info("POST Customer Request: {}", request);
 		var customer = customerMapper.requestMapper(request);
-		return ResponseEntity.ok(customerServicePort.save(customer));
+		Customer savedCustomer = customerServicePort.save(customer);
+		URI location = URI.create("/customers/" + savedCustomer.getId());
+		return ResponseEntity.created(location).build();
 	}
 
 	@GetMapping("/{documentNumber}")

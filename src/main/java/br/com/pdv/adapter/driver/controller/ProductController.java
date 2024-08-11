@@ -29,7 +29,6 @@ public class ProductController {
 		log.info("POST Product Request: {}", request);
 		var product = productMapper.requestMapper(request);
 		productServicePort.save(product, request);
-
 		return ResponseEntity.noContent().build();
 	}
 
