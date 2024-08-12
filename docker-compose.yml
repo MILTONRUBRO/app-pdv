@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_APPLICATION_NAME=pdv
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/pdv?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_TYPE=trace
+      - SPRING_FLYWAY_ENABLED=true
+      - SPRING_FLYWAY_LOCATIONS=classpath:db/migration
+      - SPRING_FLYWAY_VALIDATE_ON_MIGRATE=true
+      - SPRING_FLYWAY_DEFAULT_SCHEMA=pdv
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CORE_ENV=DEBUG
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pdv
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
