@@ -10,9 +10,9 @@ com gerenciamento de produtos e pedidos
 * **Outras:** Docker
 
 ## Como Executar
-## Docker Compose
-Na pasta do projeto execute o comando: 'docker-compose up -d'
+Docker Compose
+Na pasta do projeto execute o comando: `docker-compose up -d`
 
-##Swagger
+## Swagger
 Acessar o link abaixo para ter acesso ao Swagger do projeto
-'http://localhost:8080/swagger-ui/index.html#'
+`http://localhost:8080/swagger-ui/index.html#`
