@@ -9,10 +9,10 @@ com gerenciamento de produtos e pedidos
 * **Banco de dados:** MySQL
 * **Outras:** Docker
 
-## Como Executar
-Docker Compose
+## Como Executar  
+Docker Compose  
 Na pasta do projeto execute o comando: `docker-compose up -d`
 
 ## Swagger
-Acessar o link abaixo para ter acesso ao Swagger do projeto
+Acessar o link abaixo para ter acesso ao Swagger do projeto  
 `http://localhost:8080/swagger-ui/index.html#`
