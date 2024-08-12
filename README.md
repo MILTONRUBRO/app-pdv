@@ -4,6 +4,9 @@
 Este projeto foi desenvolvido como parte do Tech Challenge - 8SOAT. O objetivo é gerenciar uma rede de fast food 
 com gerenciamento de produtos e pedidos
 
+## Miro com a documentação
+(`https://miro.com/app/board/uXjVKsqfDCM=/?share_link_id=397605018551`)
+
 ## Tecnologias Utilizadas
 * **Backend:** Java 17, SpringBoot, JPA, Hibernate
 * **Banco de dados:** MySQL
