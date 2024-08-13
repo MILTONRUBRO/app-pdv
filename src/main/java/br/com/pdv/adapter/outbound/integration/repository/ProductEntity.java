@@ -23,6 +23,6 @@ public class ProductEntity {
 	private BigDecimal price;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Category category;
+	private CategoryEntity category;
 	
 }

@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Category {
+public class CategoryEntity {
 	
     @Id
     @Column(name = "id", nullable = false)
