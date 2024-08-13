@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Modifying
-    @Query("UPDATE Order o SET o.status = :status WHERE o.id = :id")
+    @Query("UPDATE OrderEntity o SET o.status = :status WHERE o.id = :id")
     void updateOrderStatus(Long id, OrderStatus status);
 }

@@ -9,6 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Table(name = "category")
 public class CategoryEntity {
 	
     @Id

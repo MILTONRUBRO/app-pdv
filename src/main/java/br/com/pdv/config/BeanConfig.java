@@ -8,6 +8,7 @@ import br.com.pdv.adapter.outbound.integration.repository.GetCategoryByIDAdapter
 import br.com.pdv.adapter.outbound.integration.repository.GetCustomerByDocumentAdapter;
 import br.com.pdv.adapter.outbound.integration.repository.GetListCategoryProductAdapter;
 import br.com.pdv.adapter.outbound.integration.repository.GetProductFindByIdAdapter;
+import br.com.pdv.adapter.outbound.integration.repository.ItemOrderCustomerAdapter;
 import br.com.pdv.adapter.outbound.integration.repository.PatchOrderAdapter;
 import br.com.pdv.adapter.outbound.integration.repository.PostCustomerAdapter;
 import br.com.pdv.adapter.outbound.integration.repository.PostOrderAdapter;
@@ -20,6 +21,7 @@ import br.com.pdv.domain.ports.inbound.GetListCategoryProductUseCasePort;
 import br.com.pdv.domain.ports.inbound.GetProductFindbyIdUseCasePort;
 import br.com.pdv.domain.ports.inbound.PatchOrderUseCasePort;
 import br.com.pdv.domain.ports.inbound.PostCustomerUseCasePort;
+import br.com.pdv.domain.ports.inbound.PostItemOrderUseCasePort;
 import br.com.pdv.domain.ports.inbound.PostOrderUseCasePort;
 import br.com.pdv.domain.ports.inbound.PostProductUseCasePort;
 import br.com.pdv.domain.ports.inbound.UpdateProductUseCasePort;
@@ -30,6 +32,7 @@ import br.com.pdv.domain.usecase.GetListCategoryProductUseCase;
 import br.com.pdv.domain.usecase.GetProductFindByIdUseCase;
 import br.com.pdv.domain.usecase.PatchOrderUseCase;
 import br.com.pdv.domain.usecase.PostCustomerUseCase;
+import br.com.pdv.domain.usecase.PostItemOrderUseCase;
 import br.com.pdv.domain.usecase.PostOrderUseCase;
 import br.com.pdv.domain.usecase.PostProductUseCase;
 import br.com.pdv.domain.usecase.UpdateProductUseCase;
@@ -85,6 +88,11 @@ public class BeanConfig {
     @Bean
     public UpdateProductUseCasePort updateProductUseCasePort(UpdateProductAdapter updateProductAdapter, GetCategoryByIDAdapter getCategoryByIDAdapter) {
     	return new UpdateProductUseCase(getCategoryByIDAdapter, updateProductAdapter);
+    }
+    
+    @Bean
+    public PostItemOrderUseCasePort postItemOrderUseCasePort(ItemOrderCustomerAdapter itemOrderCustomerAdapter) {
+    	return new PostItemOrderUseCase(itemOrderCustomerAdapter);
     }
 
 }
