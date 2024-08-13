@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "payments")
-public class Payment {
+public class PaymentEntity {
 
 
     @Id

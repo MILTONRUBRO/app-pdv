@@ -33,7 +33,7 @@ public class OrderEntity {
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Payment> payments;
+    private Set<PaymentEntity> payments;
 
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
