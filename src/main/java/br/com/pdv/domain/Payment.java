@@ -1,30 +1,38 @@
 package br.com.pdv.domain;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
-@Entity
-@Table(name = "payments")
 public class Payment {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Double amount;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_method")
     private PaymentMethod paymentMethod;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
-
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Double getAmount() {
+		return amount;
+	}
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	@Override
+	public String toString() {
+		return "Payment [id=" + id + ", amount=" + amount + ", paymentMethod=" + paymentMethod + ", order=" + order
+				+ "]";
+	}
+	
 }
