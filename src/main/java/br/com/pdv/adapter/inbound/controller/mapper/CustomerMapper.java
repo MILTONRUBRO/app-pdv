@@ -28,5 +28,11 @@ public class CustomerMapper {
         BeanUtils.copyProperties(customer, customerEntity);
         return customerEntity;
     }
+    
+    public Customer entityToCustomer(CustomerEntity customerEntity) {
+        var customer = new Customer();
+        BeanUtils.copyProperties(customerEntity, customer);
+        return customer;
+    }
 
 }

@@ -1,6 +1,7 @@
 package br.com.pdv.adapter.inbound.controller.response;
 
 
+import br.com.pdv.config.exception.InvalidEnumValueException;
 import br.com.pdv.domain.OrderStatus;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

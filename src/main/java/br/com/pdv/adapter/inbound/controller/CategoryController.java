@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.pdv.adapter.driven.infra.dto.response.CategoryProductResponse;
-import br.com.pdv.core.domains.ports.in.CategoryServicePort;
+import br.com.pdv.adapter.inbound.controller.response.CategoryProductResponse;
+import br.com.pdv.domain.ports.inbound.GetListCategoryProductUseCasePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -17,12 +17,12 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class CategoryController {
 
-	private final CategoryServicePort categoryServicePort;
+	private final GetListCategoryProductUseCasePort getListCategoryProductUseCasePort;
 
 	@GetMapping("/{categoryId}/products")
 	public ResponseEntity<CategoryProductResponse> listProductsByCategory(@PathVariable Long categoryId) {
 		log.info("List Products by category ID: {}", categoryId);
-		CategoryProductResponse response = categoryServicePort.listProductsByCategory(categoryId);
+		CategoryProductResponse response = getListCategoryProductUseCasePort.listProductsByCategory(categoryId);
 		return ResponseEntity.ok(response);
 	}
 

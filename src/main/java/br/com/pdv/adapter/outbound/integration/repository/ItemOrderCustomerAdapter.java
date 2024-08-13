@@ -1,7 +1,9 @@
 package br.com.pdv.adapter.outbound.integration.repository;
 
+import br.com.pdv.adapter.inbound.controller.mapper.ItemOrderMapper;
 import br.com.pdv.config.exception.InvalidQuantityException;
 import br.com.pdv.domain.ItemOrder;
+import br.com.pdv.domain.Product;
 import br.com.pdv.domain.ports.outbound.PostItemOrderAdapterPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,16 +17,19 @@ import java.math.BigDecimal;
 public class ItemOrderCustomerAdapter implements PostItemOrderAdapterPort {
 
     private final ItemOrderRepository itemOrderRepositoryPort;
-
-
+    private final GetProductFindByIdAdapter getProductFindByIdAdapter;
+    private final ItemOrderMapper itemOrderMapper;
 
     @Override
     public void addItem(ItemOrder itemOrder) {
 
-            var product = productServicePort.findById(itemOrder.getProduto().getId());
+            var product = getProductFindByIdAdapter.getProductById(itemOrder.getProduto().getId());
             this.calculateAndSetTotalValue(product, itemOrder);
-            itemOrderRepositoryPort.save(itemOrder);
-            log.info("Item pedido adicionado {}", itemOrder);
+            
+            ItemOrderEntity entity = itemOrderMapper.toEntity(itemOrder);
+            
+            itemOrderRepositoryPort.save(entity);
+            log.info("Item pedido adicionado {}", entity);
 
 
     }

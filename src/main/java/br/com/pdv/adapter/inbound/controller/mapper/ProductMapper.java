@@ -17,9 +17,9 @@ public class ProductMapper {
         return product;
     }
 
-    public ProductResponse responseMapper(Product product) {
+    public ProductResponse responseMapper(ProductEntity productEntity) {
         var productResponse = new ProductResponse();
-        BeanUtils.copyProperties(product, productResponse);
+        BeanUtils.copyProperties(productEntity, productResponse);
         return productResponse;
     }
     
@@ -29,6 +29,10 @@ public class ProductMapper {
         return productEntity;
     }
     
-
+    public Product entityToProduct(ProductEntity productEntity) {
+        var product = new Product();
+        BeanUtils.copyProperties(productEntity, product);
+        return product;
+    }
 
 }

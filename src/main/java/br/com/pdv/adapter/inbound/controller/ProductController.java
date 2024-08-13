@@ -3,7 +3,9 @@ package br.com.pdv.adapter.inbound.controller;
 import br.com.pdv.adapter.inbound.controller.mapper.ProductMapper;
 import br.com.pdv.adapter.inbound.controller.request.ProductRequest;
 import br.com.pdv.domain.Product;
+import br.com.pdv.domain.ports.inbound.DeleteProductUseCasePort;
 import br.com.pdv.domain.ports.inbound.PostProductUseCasePort;
+import br.com.pdv.domain.ports.inbound.UpdateProductUseCasePort;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,9 +27,10 @@ import lombok.extern.log4j.Log4j2;
 public class ProductController {
 
 	private final ProductMapper productMapper;
-	//private final ProductServicePort productServicePort;
 	private final PostProductUseCasePort  postProductUseCasePort;
-
+	private final DeleteProductUseCasePort  deleteProductUseCasePort;
+	private final UpdateProductUseCasePort updateProductUseCasePort;
+ 
 	@PostMapping
 	public ResponseEntity<Void> saveProduct(@RequestBody ProductRequest request) {
 		log.info("POST Product Request: {}", request);
@@ -39,7 +42,7 @@ public class ProductController {
 	@DeleteMapping("/{idProduct}")
 	public ResponseEntity<Void> deleteProduct(@PathVariable Long idProduct) {
 		log.info("DELETE Product ID: {}", idProduct);
-		productServicePort.delete(idProduct);
+		deleteProductUseCasePort.execute(idProduct);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -47,7 +50,7 @@ public class ProductController {
 	public void updateProduct(@RequestBody ProductRequest request, @PathVariable Long idProduct) {
 		log.info("UPDATE Product {} With ID: {}",request, idProduct);
 		Product product = productMapper.requestMapper(request);
-		productServicePort.update(request, idProduct);
+		updateProductUseCasePort.update(product, idProduct);
 
 	}
 
