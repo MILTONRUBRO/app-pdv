@@ -1,4 +1,4 @@
-package br.com.pdv.adapter.driven.infra.mapper;
+package br.com.pdv.adapter.inbound.controller.mapper;
 
 import br.com.pdv.adapter.inbound.controller.request.CustomerRequest;
 import br.com.pdv.adapter.inbound.controller.response.CustomerResponse;
