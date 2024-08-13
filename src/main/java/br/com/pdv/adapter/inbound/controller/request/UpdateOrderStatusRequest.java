@@ -1,7 +1,7 @@
 package br.com.pdv.adapter.inbound.controller.request;
 
 import br.com.pdv.adapter.inbound.controller.response.OrderStatusDeserializer;
-import br.com.pdv.adapter.driven.infra.entity.OrderStatus;
+import br.com.pdv.domain.OrderStatus;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

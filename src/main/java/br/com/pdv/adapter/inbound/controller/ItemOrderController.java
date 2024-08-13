@@ -1,7 +1,8 @@
 package br.com.pdv.adapter.inbound.controller;
 
-import br.com.pdv.adapter.driven.infra.dto.request.ItemOrderRequest;
-import br.com.pdv.core.domains.ports.in.ItemOrderServicePort;
+import br.com.pdv.adapter.inbound.controller.mapper.ItemOrderMapper;
+import br.com.pdv.adapter.inbound.controller.request.ItemOrderRequest;
+import br.com.pdv.domain.ports.inbound.PostItemOrderUseCasePort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class ItemOrderController {
 
-	private final ItemOrderServicePort itemOrderServicePort;
-
+	private final PostItemOrderUseCasePort postItemOrderUseCasePort;
+	private final ItemOrderMapper itemOrderMapper;
 
 	@PostMapping
 	public ResponseEntity<Void> addItem(@RequestBody ItemOrderRequest request) {
 		log.info("POST AddItem Request: {}", request);
-		itemOrderServicePort.addItem(request);
+		var itemOrder = itemOrderMapper.requestMapper(request);
+		postItemOrderUseCasePort.execute(itemOrder);
 		return ResponseEntity.noContent().build();
 	}
 

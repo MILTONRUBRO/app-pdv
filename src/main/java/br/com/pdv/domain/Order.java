@@ -1,6 +1,4 @@
 package br.com.pdv.domain;
-
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,47 +7,69 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
-@Entity
-@Table(name = "orders")
 public class Order {
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
     private Long id;
-
     private LocalDateTime data;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
     private OrderStatus status;
-
     private Double totalValue;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payment> payments;
-
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<ItemOrder> itens;
 
-    @Override
-    public String toString() {
+    public Long getId() {
+        return id;
+    }
 
-        return "Order{" +
-                "id=" + id +
-                ", data=" + data +
-                ", status=" + status +
-                ", totalValue=" + totalValue +
-                ", customer=" + customer.getId() +
-                ", payments=" + payments +
-                ", itens=" + itens +
-                '}';
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public void setData(LocalDateTime data) {
+        this.data = data;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public Double getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Set<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<ItemOrder> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemOrder> itens) {
+        this.itens = itens;
     }
 }

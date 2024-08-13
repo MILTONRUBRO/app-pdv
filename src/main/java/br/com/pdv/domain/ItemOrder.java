@@ -6,37 +6,53 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@Entity
-@Table(name = "item_order")
 public class ItemOrder {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id")
     private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product produto;
-
     private int quantity;
-
-    @Column(name = "total_value")
     private BigDecimal totalValue;
 
-    @Override
-    public String toString() {
-        return "ItemOrder{" +
-                "id=" + id +
-                ", order=" + order.getId() +
-                ", produto=" + produto.getId() +
-                ", quantity=" + quantity +
-                ", totalValue=" + totalValue +
-                '}';
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Product produto) {
+        this.produto = produto;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(BigDecimal totalValue) {
+        this.totalValue = totalValue;
     }
 }

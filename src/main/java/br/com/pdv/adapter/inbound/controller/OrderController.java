@@ -1,8 +1,12 @@
 package br.com.pdv.adapter.inbound.controller;
 
-import br.com.pdv.adapter.driven.infra.dto.request.OrderRequest;
-import br.com.pdv.adapter.driven.infra.dto.request.UpdateOrderStatusRequest;
-import br.com.pdv.core.domains.ports.in.OrderServicePort;
+
+import br.com.pdv.adapter.inbound.controller.mapper.OrderMapper;
+import br.com.pdv.adapter.inbound.controller.request.OrderRequest;
+import br.com.pdv.adapter.inbound.controller.request.UpdateOrderStatusRequest;
+import br.com.pdv.domain.usecase.PatchOrderUseCase;
+import br.com.pdv.domain.usecase.PostItemOrderUseCase;
+import br.com.pdv.domain.usecase.PostOrderUseCase;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,20 +20,23 @@ import org.springframework.web.bind.annotation.*;
 @Log4j2
 public class OrderController {
 
-	private final OrderServicePort orderServicePort;
+	private final PostOrderUseCase postItemOrderUseCase;
+	private final PatchOrderUseCase patchOrderUseCase;
 
+	private final OrderMapper orderMapper;
 
 	@PostMapping
 	public ResponseEntity<Void> createOrder(@RequestBody OrderRequest request) {
 		log.info("POST Order Request: {}", request);
-		orderServicePort.create(request);
+		var order = orderMapper.requestMapper(request);
+		postItemOrderUseCase.execute(order);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PatchMapping("/{idOrder}")
 	public ResponseEntity<Void> updateOrderStatus(@PathVariable Long idOrder, @RequestBody @Valid UpdateOrderStatusRequest updateOrderStatusRequest) {
 		log.info("PATCH update status for Order ID: {}", idOrder);
-		orderServicePort.updateOrderStatus(idOrder, updateOrderStatusRequest.getStatus());
+		patchOrderUseCase.execute(idOrder, updateOrderStatusRequest.getStatus());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
