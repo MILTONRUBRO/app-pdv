@@ -13,7 +13,7 @@ public class ItemOrderMapper {
 		var itemOrder = new ItemOrder();
 		var order = new Order();
 		order.setId(request.getOrderId());
-		var  product = new Product();
+		var  product = new ProductEntity();
 		product.setId(request.getProductId());
 		itemOrder.setOrder(order);
 		itemOrder.setProduto(product);

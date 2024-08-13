@@ -33,7 +33,7 @@ public class ItemOrderServicePortImpl implements ItemOrderServicePort {
         log.info("Item pedido adicionado {}", itemOrder);
     }
 
-    private void calculateAndSetTotalValue(Product product, ItemOrder itemOrder) {
+    private void calculateAndSetTotalValue(ProductEntity product, ItemOrder itemOrder) {
         if (itemOrder.getQuantity() <= 0) {
             throw new InvalidQuantityException("Quantidade de itens é inválido.");
         } else {

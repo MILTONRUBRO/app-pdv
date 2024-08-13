@@ -4,11 +4,11 @@ import br.com.pdv.domain.Customer;
 import br.com.pdv.domain.ports.inbound.PostCustomerUseCasePort;
 import br.com.pdv.domain.ports.outbound.PostCustomerAdapterPort;
 
-public class PostCustomerServiceUseCase implements PostCustomerUseCasePort {
+public class PostCustomerUseCase implements PostCustomerUseCasePort {
 
     private final PostCustomerAdapterPort postCustomerServiceAdapterPort;
 
-    public PostCustomerServiceUseCase(PostCustomerAdapterPort postCustomerServiceAdapterPort) {
+    public PostCustomerUseCase(PostCustomerAdapterPort postCustomerServiceAdapterPort) {
         this.postCustomerServiceAdapterPort = postCustomerServiceAdapterPort;
     }
 

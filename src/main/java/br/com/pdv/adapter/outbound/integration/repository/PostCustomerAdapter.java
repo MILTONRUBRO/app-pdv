@@ -1,5 +1,6 @@
 package br.com.pdv.adapter.outbound.integration.repository;
 
+import br.com.pdv.adapter.inbound.controller.mapper.CustomerMapper;
 import br.com.pdv.domain.Customer;
 import br.com.pdv.domain.ports.outbound.PostCustomerAdapterPort;
 import lombok.AllArgsConstructor;
@@ -12,10 +13,13 @@ import org.springframework.stereotype.Component;
 public class PostCustomerAdapter implements PostCustomerAdapterPort {
 
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
     @Override
     public String saveCustomer(Customer customer) {
-        var customerSaved = customerRepository.save(customer);
+    	CustomerEntity customerEntity = customerMapper.toCustomerEntity(customer);
+    	
+        var customerSaved = customerRepository.save(customerEntity);
         log.info("Customer Saved {}", customer);
         return customerSaved.getDocument();
     }

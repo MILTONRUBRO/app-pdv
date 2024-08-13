@@ -3,6 +3,7 @@ package br.com.pdv.adapter.inbound.controller.mapper;
 
 import br.com.pdv.adapter.inbound.controller.request.ProductRequest;
 import br.com.pdv.adapter.inbound.controller.response.ProductResponse;
+import br.com.pdv.adapter.outbound.integration.repository.ProductEntity;
 import br.com.pdv.domain.Product;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,13 @@ public class ProductMapper {
         BeanUtils.copyProperties(product, productResponse);
         return productResponse;
     }
+    
+    public ProductEntity toProductEntity(Product product) {
+        var productEntity = new ProductEntity();
+        BeanUtils.copyProperties(product, productEntity);
+        return productEntity;
+    }
+    
 
 
 }

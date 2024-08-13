@@ -22,7 +22,7 @@ public class ProductServicePortImpl implements ProductServicePort {
 	private final ProductMapper productMapper;
 
 	@Override
-	public void save(Product product, ProductRequest request) {
+	public void save(ProductEntity product, ProductRequest request) {
 		var category = categoryRepository.findById(request.getIdCategory())
 				.orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
 		product.setCategory(category);
@@ -47,7 +47,7 @@ public class ProductServicePortImpl implements ProductServicePort {
 		var productSaved = productRepository.findById(idProduct)
 				.orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
 		
-		Product newProduct = productMapper.requestMapper(request);
+		ProductEntity newProduct = productMapper.requestMapper(request);
 		newProduct.setCategory(category);
 		newProduct.setId(productSaved.getId());
 		
@@ -55,7 +55,7 @@ public class ProductServicePortImpl implements ProductServicePort {
 	}
 
 	@Override
-	public Product findById(Long idProduct) {
+	public ProductEntity findById(Long idProduct) {
 		return productRepository.findById(idProduct)
 				.orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
 

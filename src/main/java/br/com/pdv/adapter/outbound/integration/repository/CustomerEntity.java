@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class Customer {
+public class CustomerEntity {
 	
     @Id
     @Column(name = "id", nullable = false)

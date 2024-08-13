@@ -10,13 +10,13 @@ import br.com.pdv.adapter.driven.infra.dto.response.ProductResponse;
 @Component
 public class ProductMapper {
 
-	public Product requestMapper(ProductRequest request) {
-		var product = new Product();
+	public ProductEntity requestMapper(ProductRequest request) {
+		var product = new ProductEntity();
 		BeanUtils.copyProperties(request, product);
 		return product;
 	}
 	
-	public ProductResponse responseMapper(Product product) {
+	public ProductResponse responseMapper(ProductEntity product) {
 		var productResponse = new ProductResponse();
         BeanUtils.copyProperties(product, productResponse);
 		return productResponse;

@@ -25,7 +25,7 @@ public class CategoryServicePortImpl implements CategoryServicePort {
 	@Override
 	public CategoryProductResponse listProductsByCategory(Long categoryId) {
 		
-		List<Product> products = productRepository.findByCategoryId(categoryId);
+		List<ProductEntity> products = productRepository.findByCategoryId(categoryId);
 		
 		List<ProductResponse> productsResponse = new ArrayList<>();
 		
