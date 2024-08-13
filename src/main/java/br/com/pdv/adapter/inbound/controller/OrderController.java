@@ -4,6 +4,8 @@ package br.com.pdv.adapter.inbound.controller;
 import br.com.pdv.adapter.inbound.controller.mapper.OrderMapper;
 import br.com.pdv.adapter.inbound.controller.request.OrderRequest;
 import br.com.pdv.adapter.inbound.controller.request.UpdateOrderStatusRequest;
+import br.com.pdv.domain.ports.inbound.PatchOrderUseCasePort;
+import br.com.pdv.domain.ports.inbound.PostOrderUseCasePort;
 import br.com.pdv.domain.usecase.PatchOrderUseCase;
 import br.com.pdv.domain.usecase.PostItemOrderUseCase;
 import br.com.pdv.domain.usecase.PostOrderUseCase;
@@ -20,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @Log4j2
 public class OrderController {
 
-	private final PostOrderUseCase postItemOrderUseCase;
-	private final PatchOrderUseCase patchOrderUseCase;
+	private final PostOrderUseCasePort postItemOrderUseCase;
+	private final PatchOrderUseCasePort patchOrderUseCase;
 
 	private final OrderMapper orderMapper;
 
