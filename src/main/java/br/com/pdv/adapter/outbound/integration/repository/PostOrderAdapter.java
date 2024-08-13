@@ -22,6 +22,6 @@ public class PostOrderAdapter implements PostOrderAdapterPort {
     @Override
     public String save(Order order) {
         OrderEntity orderEntity = orderRepository.save(orderMapper.toEntity(order));
-        return order.getId().toString();
+        return orderEntity.getId().toString();
     }
 }

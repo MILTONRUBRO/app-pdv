@@ -13,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Table(name = "customer")
 public class CustomerEntity {
 	
     @Id

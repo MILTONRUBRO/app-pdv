@@ -12,6 +12,9 @@ import br.com.pdv.domain.usecase.PostOrderUseCase;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.URI;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +34,10 @@ public class OrderController {
 	public ResponseEntity<Void> createOrder(@RequestBody OrderRequest request) {
 		log.info("POST Order Request: {}", request);
 		var order = orderMapper.requestMapper(request);
-		postItemOrderUseCase.execute(order);
-		return ResponseEntity.noContent().build();
+		String id = postItemOrderUseCase.execute(order);
+		
+        URI location = URI.create("/orders/" + id);
+        return ResponseEntity.created(location).build();
 	}
 
 	@PatchMapping("/{idOrder}")
