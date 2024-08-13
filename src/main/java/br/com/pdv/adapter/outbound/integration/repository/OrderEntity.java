@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "orders")
-public class Order {
+public class OrderEntity {
 
     @Id
     @Column(name = "id", nullable = false)
