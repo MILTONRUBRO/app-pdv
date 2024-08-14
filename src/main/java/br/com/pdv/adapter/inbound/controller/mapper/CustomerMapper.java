@@ -2,7 +2,7 @@ package br.com.pdv.adapter.inbound.controller.mapper;
 
 import br.com.pdv.adapter.inbound.controller.request.CustomerRequest;
 import br.com.pdv.adapter.inbound.controller.response.CustomerResponse;
-import br.com.pdv.adapter.outbound.integration.repository.CustomerEntity;
+import br.com.pdv.adapter.outbound.integration.repository.entity.CustomerEntity;
 import br.com.pdv.domain.Customer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

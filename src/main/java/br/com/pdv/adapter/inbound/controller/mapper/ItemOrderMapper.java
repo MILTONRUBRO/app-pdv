@@ -1,7 +1,7 @@
 package br.com.pdv.adapter.inbound.controller.mapper;
 
 import br.com.pdv.adapter.inbound.controller.request.ItemOrderRequest;
-import br.com.pdv.adapter.outbound.integration.repository.ItemOrderEntity;
+import br.com.pdv.adapter.outbound.integration.repository.entity.ItemOrderEntity;
 import br.com.pdv.domain.ItemOrder;
 import br.com.pdv.domain.Order;
 import br.com.pdv.domain.Product;

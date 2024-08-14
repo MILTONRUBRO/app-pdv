@@ -2,9 +2,9 @@ package br.com.pdv.adapter.inbound.controller.mapper;
 
 
 import br.com.pdv.adapter.inbound.controller.request.OrderRequest;
-import br.com.pdv.adapter.outbound.integration.repository.CustomerEntity;
-import br.com.pdv.adapter.outbound.integration.repository.OrderEntity;
-import br.com.pdv.adapter.outbound.integration.repository.OrderStatus;
+import br.com.pdv.adapter.outbound.integration.repository.entity.CustomerEntity;
+import br.com.pdv.adapter.outbound.integration.repository.entity.OrderEntity;
+import br.com.pdv.adapter.outbound.integration.repository.entity.OrderStatus;
 import br.com.pdv.domain.Customer;
 import br.com.pdv.domain.Order;
 import org.springframework.beans.BeanUtils;

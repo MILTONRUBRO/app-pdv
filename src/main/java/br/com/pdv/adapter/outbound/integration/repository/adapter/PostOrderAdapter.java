@@ -1,6 +1,8 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.adapter;
 
 import br.com.pdv.adapter.inbound.controller.mapper.OrderMapper;
+import br.com.pdv.adapter.outbound.integration.repository.OrderRepository;
+import br.com.pdv.adapter.outbound.integration.repository.entity.OrderEntity;
 import br.com.pdv.domain.Order;
 import br.com.pdv.domain.ports.outbound.PatchOrderAdapterPort;
 import br.com.pdv.domain.ports.outbound.PostOrderAdapterPort;

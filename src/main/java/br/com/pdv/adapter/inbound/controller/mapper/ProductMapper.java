@@ -3,7 +3,7 @@ package br.com.pdv.adapter.inbound.controller.mapper;
 
 import br.com.pdv.adapter.inbound.controller.request.ProductRequest;
 import br.com.pdv.adapter.inbound.controller.response.ProductResponse;
-import br.com.pdv.adapter.outbound.integration.repository.ProductEntity;
+import br.com.pdv.adapter.outbound.integration.repository.entity.ProductEntity;
 import br.com.pdv.domain.Product;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

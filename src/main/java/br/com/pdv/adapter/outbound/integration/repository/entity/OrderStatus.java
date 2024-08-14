@@ -1,4 +1,4 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.entity;
 
 import lombok.Getter;
 import lombok.ToString;

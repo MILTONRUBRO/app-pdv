@@ -1,6 +1,8 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.adapter;
 
 import br.com.pdv.adapter.inbound.controller.mapper.ItemOrderMapper;
+import br.com.pdv.adapter.outbound.integration.repository.ItemOrderRepository;
+import br.com.pdv.adapter.outbound.integration.repository.entity.ItemOrderEntity;
 import br.com.pdv.config.exception.InvalidQuantityException;
 import br.com.pdv.domain.ItemOrder;
 import br.com.pdv.domain.Product;

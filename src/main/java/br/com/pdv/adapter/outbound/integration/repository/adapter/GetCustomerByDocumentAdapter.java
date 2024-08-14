@@ -1,6 +1,8 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.adapter;
 
 import br.com.pdv.adapter.inbound.controller.mapper.CustomerMapper;
+import br.com.pdv.adapter.outbound.integration.repository.CustomerRepository;
+import br.com.pdv.adapter.outbound.integration.repository.entity.CustomerEntity;
 import br.com.pdv.config.exception.NotFoundException;
 import br.com.pdv.domain.Customer;
 import br.com.pdv.domain.ports.outbound.GetCustomerByDocumentAdapterPort;

@@ -1,4 +1,4 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.entity;
 
 
 import jakarta.persistence.*;

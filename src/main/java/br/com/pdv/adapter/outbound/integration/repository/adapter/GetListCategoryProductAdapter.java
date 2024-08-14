@@ -1,4 +1,4 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import br.com.pdv.adapter.inbound.controller.mapper.ProductMapper;
 import br.com.pdv.adapter.inbound.controller.response.CategoryProductResponse;
 import br.com.pdv.adapter.inbound.controller.response.ProductResponse;
+import br.com.pdv.adapter.outbound.integration.repository.ProductRepository;
+import br.com.pdv.adapter.outbound.integration.repository.entity.ProductEntity;
 import br.com.pdv.domain.ports.outbound.GetListCategoryProductAdapterPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

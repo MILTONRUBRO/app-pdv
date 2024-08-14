@@ -3,7 +3,7 @@ package br.com.pdv.adapter.inbound.controller.mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import br.com.pdv.adapter.outbound.integration.repository.CategoryEntity;
+import br.com.pdv.adapter.outbound.integration.repository.entity.CategoryEntity;
 import br.com.pdv.domain.Category;
 
 @Component

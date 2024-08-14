@@ -1,8 +1,9 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.adapter;
 
 import org.springframework.stereotype.Component;
 
 import br.com.pdv.adapter.inbound.controller.mapper.CategoryMapper;
+import br.com.pdv.adapter.outbound.integration.repository.CategoryRepository;
 import br.com.pdv.config.exception.NotFoundException;
 import br.com.pdv.domain.Category;
 import br.com.pdv.domain.ports.outbound.GetCategoryByIdAdapterPort;

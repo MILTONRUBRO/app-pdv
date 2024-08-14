@@ -1,9 +1,12 @@
-package br.com.pdv.adapter.outbound.integration.repository;
+package br.com.pdv.adapter.outbound.integration.repository.adapter;
 
 import org.springframework.stereotype.Component;
 
 import br.com.pdv.adapter.inbound.controller.mapper.ProductMapper;
 import br.com.pdv.adapter.inbound.controller.request.ProductRequest;
+import br.com.pdv.adapter.outbound.integration.repository.CategoryRepository;
+import br.com.pdv.adapter.outbound.integration.repository.ProductRepository;
+import br.com.pdv.adapter.outbound.integration.repository.entity.ProductEntity;
 import br.com.pdv.config.exception.NotFoundException;
 import br.com.pdv.domain.Product;
 import br.com.pdv.domain.ports.outbound.PostProductAdapterPort;
