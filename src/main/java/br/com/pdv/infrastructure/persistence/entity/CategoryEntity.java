@@ -17,4 +17,12 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
     private Long id;
     private String name;
+
+    public CategoryEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public CategoryEntity() {
+    }
 }

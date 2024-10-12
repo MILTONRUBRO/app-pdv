@@ -1,6 +1,7 @@
 package br.com.pdv.infrastructure.controllers.mappers;
 
 import br.com.pdv.domain.entity.Product;
+import br.com.pdv.infrastructure.controllers.request.ProductRequest;
 import br.com.pdv.infrastructure.controllers.response.ProductResponse;
 import br.com.pdv.infrastructure.controllers.response.ProductsByCategoryIdResponse;
 import org.springframework.beans.BeanUtils;
@@ -45,5 +46,9 @@ public class ProductDTOMapper {
                 ))
                 .collect(Collectors.toList());
         return new ProductsByCategoryIdResponse(productResponses);
+    }
+
+    public Product toProduct(ProductRequest request) {
+        return new Product(null, request.name(), request.description(), request.price(), request.idCategory());
     }
 }

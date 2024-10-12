@@ -25,4 +25,15 @@ public class ProductEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private CategoryEntity category;
 
+
+    public ProductEntity(Long id, String name, String description, BigDecimal price, CategoryEntity category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+
+    public ProductEntity() {
+    }
 }
