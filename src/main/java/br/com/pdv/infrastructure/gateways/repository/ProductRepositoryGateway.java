@@ -2,8 +2,7 @@ package br.com.pdv.infrastructure.gateways.repository;
 
 import br.com.pdv.application.gateways.CategoryGateway;
 import br.com.pdv.application.gateways.ProductGateway;
-import br.com.pdv.config.exception.NotFoundException;
-import br.com.pdv.domain.entity.Category;
+import br.com.pdv.application.exception.NotFoundException;
 import br.com.pdv.domain.entity.Product;
 import br.com.pdv.infrastructure.gateways.mapper.ProductEntityMapper;
 import br.com.pdv.infrastructure.persistence.entity.ProductEntity;
@@ -52,5 +51,12 @@ public class ProductRepositoryGateway implements ProductGateway {
         ProductEntity updatedEntity = productRepository.save(productEntity);
         log.info("Product updated {}", updatedEntity);
         return productEntityMapper.toDomainObj(updatedEntity);
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        ProductEntity productSaved = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
+        productRepository.delete(productSaved);
     }
 }

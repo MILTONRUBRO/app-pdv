@@ -1,4 +1,4 @@
-package br.com.pdv.config.exception;
+package br.com.pdv.application.exception;
 
 public class InvalidEnumValueException extends RuntimeException {
     public InvalidEnumValueException(String message) {

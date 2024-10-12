@@ -1,4 +1,4 @@
-package br.com.pdv.config.exception;
+package br.com.pdv.application.exception;
 
 public class InvalidQuantityException extends RuntimeException {
 

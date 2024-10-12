@@ -1,6 +1,7 @@
 package br.com.pdv.infrastructure.controllers;
 
 import br.com.pdv.application.usecase.CreateProductInteractor;
+import br.com.pdv.application.usecase.DeleteProductInteractor;
 import br.com.pdv.application.usecase.ListProductsByCategoryIdInteractor;
 import br.com.pdv.application.usecase.UpdateProductInteractor;
 import br.com.pdv.domain.entity.Product;
@@ -18,12 +19,14 @@ public class ProductController {
     private final ProductDTOMapper productDTOMapper;
     private final CreateProductInteractor createProductUseCase;
     private final UpdateProductInteractor updateProductInteractor;
+    private final DeleteProductInteractor deleteProductInteractor;
 
 
-    public ProductController(CreateProductInteractor createProductUseCase, ProductDTOMapper productDTOMapper,UpdateProductInteractor updateProductInteractor) {
+    public ProductController(CreateProductInteractor createProductUseCase, ProductDTOMapper productDTOMapper, UpdateProductInteractor updateProductInteractor, DeleteProductInteractor deleteProductInteractor) {
         this.productDTOMapper = productDTOMapper;
         this.createProductUseCase = createProductUseCase;
         this.updateProductInteractor = updateProductInteractor;
+        this.deleteProductInteractor = deleteProductInteractor;
     }
 
     @PostMapping
@@ -36,10 +39,16 @@ public class ProductController {
 
     @PutMapping("/{idProduct}")
     public void updateProduct(@RequestBody ProductRequest request, @PathVariable Long idProduct) {
-        log.info("UPDATE Product {} With ID: {}",request, idProduct);
+        log.info("UPDATE Product {} With ID: {}", request, idProduct);
         Product product = productDTOMapper.toProduct(request);
         updateProductInteractor.updateProduct(product, idProduct);
+    }
 
+    @DeleteMapping("/{idProduct}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long idProduct) {
+        log.info("DELETE Product ID: {}", idProduct);
+        deleteProductInteractor.deleteProduct(idProduct);
+        return ResponseEntity.noContent().build();
     }
 
 

@@ -1,10 +1,9 @@
 package br.com.pdv.infrastructure.gateways.repository;
 
 import br.com.pdv.application.gateways.CategoryGateway;
-import br.com.pdv.config.exception.NotFoundException;
+import br.com.pdv.application.exception.NotFoundException;
 import br.com.pdv.domain.entity.Category;
 import br.com.pdv.infrastructure.gateways.mapper.CategoryEntityMapper;
-import br.com.pdv.infrastructure.gateways.mapper.ProductEntityMapper;
 import br.com.pdv.infrastructure.persistence.entity.CategoryEntity;
 import br.com.pdv.infrastructure.persistence.repository.CategoryRepository;
 

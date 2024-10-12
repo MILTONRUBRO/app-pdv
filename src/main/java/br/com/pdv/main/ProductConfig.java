@@ -3,6 +3,7 @@ package br.com.pdv.main;
 import br.com.pdv.application.gateways.CategoryGateway;
 import br.com.pdv.application.gateways.ProductGateway;
 import br.com.pdv.application.usecase.CreateProductInteractor;
+import br.com.pdv.application.usecase.DeleteProductInteractor;
 import br.com.pdv.application.usecase.ListProductsByCategoryIdInteractor;
 import br.com.pdv.application.usecase.UpdateProductInteractor;
 import br.com.pdv.infrastructure.controllers.mappers.ProductDTOMapper;
@@ -24,6 +25,10 @@ public class ProductConfig {
     @Bean
     CreateProductInteractor createProductUseCase(ProductGateway productGateway) {
         return new CreateProductInteractor(productGateway);
+    }
+    @Bean
+    DeleteProductInteractor deleteProductUseCase(ProductGateway productGateway) {
+        return new DeleteProductInteractor(productGateway);
     }
 
     @Bean

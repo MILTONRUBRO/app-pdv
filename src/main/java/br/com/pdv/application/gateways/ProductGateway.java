@@ -12,4 +12,5 @@ public interface ProductGateway {
 
     Product updateProduct(Product product, Long productId);
 
+    void deleteProduct(Long productId);
 }
