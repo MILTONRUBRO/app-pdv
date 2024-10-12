@@ -1,11 +1,18 @@
 package br.com.pdv.infrastructure.persistence.entity;
 
-import jakarta.persistence.*;
+import java.math.BigDecimal;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -14,15 +21,15 @@ import java.math.BigDecimal;
 @Table(name = "product")
 public class ProductEntity {
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
-    private Long id;
-    private String name;
-    private String description;
-    private BigDecimal price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CategoryEntity category;
-
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
+	private Long id;
+	private String name;
+	private String description;
+	private BigDecimal price;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private CategoryEntity category;
+	
 }
