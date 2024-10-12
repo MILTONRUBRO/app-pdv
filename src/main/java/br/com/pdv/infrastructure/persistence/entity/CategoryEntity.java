@@ -16,10 +16,18 @@ import lombok.ToString;
 @ToString
 @Table(name = "category")
 public class CategoryEntity {
-	
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
-	private Long id;
-	private String name;
+    private Long id;
+    private String name;
+
+    public CategoryEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public CategoryEntity() {
+    }
 }

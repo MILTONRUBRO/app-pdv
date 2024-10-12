@@ -1,10 +1,13 @@
 package br.com.pdv.main;
 
-
+import br.com.pdv.application.gateways.CategoryGateway;
 import br.com.pdv.application.gateways.ProductGateway;
+import br.com.pdv.application.usecase.CreateProductInteractor;
 import br.com.pdv.application.usecase.ListProductsByCategoryIdInteractor;
+import br.com.pdv.application.usecase.UpdateProductInteractor;
 import br.com.pdv.infrastructure.controllers.mappers.ProductDTOMapper;
 import br.com.pdv.infrastructure.gateways.mapper.ProductEntityMapper;
+import br.com.pdv.infrastructure.gateways.repository.CategoryRepositoryGateway;
 import br.com.pdv.infrastructure.gateways.repository.ProductRepositoryGateway;
 import br.com.pdv.infrastructure.persistence.repository.ProductRepository;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +22,18 @@ public class ProductConfig {
     }
 
     @Bean
-    ProductGateway productGateway(ProductRepository productRepository, ProductEntityMapper productEntityMapper) {
-        return new ProductRepositoryGateway(productRepository, productEntityMapper);
+    CreateProductInteractor createProductUseCase(ProductGateway productGateway) {
+        return new CreateProductInteractor(productGateway);
+    }
+
+    @Bean
+    UpdateProductInteractor updateProductUseCase(ProductGateway productGateway) {
+        return new UpdateProductInteractor(productGateway);
+    }
+
+    @Bean
+    ProductGateway productGateway(ProductRepository productRepository, ProductEntityMapper productEntityMapper, CategoryGateway categoryGateway ) {
+        return new ProductRepositoryGateway(productRepository, productEntityMapper,categoryGateway);
     }
 
     @Bean
@@ -32,4 +45,5 @@ public class ProductConfig {
     ProductDTOMapper productDTOMapper() {
         return new ProductDTOMapper();
     }
+
 }

@@ -21,15 +21,26 @@ import lombok.ToString;
 @Table(name = "product")
 public class ProductEntity {
 
-	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
-	private Long id;
-	private String name;
-	private String description;
-	private BigDecimal price;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private CategoryEntity category;
-	
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "increment")
+    private Long id;
+    private String name;
+    private String description;
+    private BigDecimal price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CategoryEntity category;
+
+
+    public ProductEntity(Long id, String name, String description, BigDecimal price, CategoryEntity category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+
+    public ProductEntity() {
+    }
 }

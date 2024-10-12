@@ -7,4 +7,9 @@ import java.util.List;
 public interface ProductGateway {
 
     List<Product> listProductByCategoryId(Long categoryId);
+
+    Product createProduct(Product product);
+
+    Product updateProduct(Product product, Long productId);
+
 }
