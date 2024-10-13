@@ -59,4 +59,11 @@ public class ProductRepositoryGateway implements ProductGateway {
                 .orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
         productRepository.delete(productSaved);
     }
+
+    @Override
+    public Product findById(Long productId) {
+        ProductEntity productSaved = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Produto Não Encontrado"));
+        return productEntityMapper.toDomainObj(productSaved);
+    }
 }
