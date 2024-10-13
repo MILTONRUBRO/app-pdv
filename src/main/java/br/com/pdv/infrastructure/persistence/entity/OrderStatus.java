@@ -6,9 +6,10 @@ import lombok.ToString;
 @Getter
 public enum OrderStatus {
 
-    RECEIVED("recebido"),
-    PROCESSING("processando"),
-    COMPLETED("completado");
+    RECEIVED("Recebido"),
+    PROCESSING("Processando"),
+    COMPLETED("Completado"),
+    FINALIZED("Finalizado");
 
     private final String status;
 

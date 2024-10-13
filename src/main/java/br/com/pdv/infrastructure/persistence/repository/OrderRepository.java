@@ -7,10 +7,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Modifying
     @Query("UPDATE OrderEntity o SET o.status = :status WHERE o.id = :id")
     void updateOrderStatus(Long id, OrderStatus status);
+
+    List<OrderEntity> findByStatusNot(br.com.pdv.infrastructure.persistence.entity.OrderStatus status);
+
 }

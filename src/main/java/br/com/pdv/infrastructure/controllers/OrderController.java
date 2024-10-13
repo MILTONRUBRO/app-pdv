@@ -1,6 +1,7 @@
 package br.com.pdv.infrastructure.controllers;
 
 
+import br.com.pdv.application.usecase.GetAllOrdersOrdenedInteractor;
 import br.com.pdv.application.usecase.GetOrderPaymentSatusInteractor;
 import br.com.pdv.application.usecase.OrderCreateInteractor;
 import br.com.pdv.application.usecase.UpdateOrderStatusInteractor;
@@ -11,6 +12,7 @@ import br.com.pdv.infrastructure.controllers.mappers.OrderDTOMapper;
 import br.com.pdv.infrastructure.controllers.request.OrderRequest;
 import br.com.pdv.infrastructure.controllers.request.OrderWithItemsRequest;
 import br.com.pdv.infrastructure.controllers.request.UpdateOrderStatusRequest;
+import br.com.pdv.infrastructure.controllers.response.OrdersResponse;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
@@ -30,14 +32,15 @@ public class OrderController {
 	private final OrderCreateInteractor createOrderUseCase;
 	private final UpdateOrderStatusInteractor updateOrderStatusInteractor;
 	private final GetOrderPaymentSatusInteractor getOrderPaymentSatusInteractor;
-
+	private final GetAllOrdersOrdenedInteractor getAllOrdersOrdenedUseCase;
 
 	public OrderController(OrderDTOMapper orderDTOMapper, OrderCreateInteractor createOrderUseCase,
-						   UpdateOrderStatusInteractor updateOrderStatusInteractor, GetOrderPaymentSatusInteractor getOrderPaymentSatusInteractor) {
+						   UpdateOrderStatusInteractor updateOrderStatusInteractor, GetOrderPaymentSatusInteractor getOrderPaymentSatusInteractor, GetAllOrdersOrdenedInteractor getAllOrdersOrdenedUseCase) {
 		this.orderDTOMapper = orderDTOMapper;
 		this.createOrderUseCase = createOrderUseCase;
 		this.updateOrderStatusInteractor = updateOrderStatusInteractor;
 		this.getOrderPaymentSatusInteractor =getOrderPaymentSatusInteractor;
+		this.getAllOrdersOrdenedUseCase = getAllOrdersOrdenedUseCase;
 	}
 
 	@PostMapping
@@ -70,5 +73,12 @@ public class OrderController {
 		log.info("GET payment status for Order ID: {}", idOrder);
 		String response = getOrderPaymentSatusInteractor.getOrderPaymentSatus(idOrder);
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping()
+	public ResponseEntity<List<OrdersResponse>>getAllOrders() {
+		log.info("GET all orders" );
+		List<OrdersResponse>ordersResponse = getAllOrdersOrdenedUseCase.getAllOrdersOrdened();
+		return ResponseEntity.ok(ordersResponse);
 	}
 }

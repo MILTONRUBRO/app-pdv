@@ -1,11 +1,13 @@
 package br.com.pdv.infrastructure.gateways.mapper;
 
 import br.com.pdv.domain.entity.Order;
+import br.com.pdv.infrastructure.controllers.response.OrdersResponse;
 import br.com.pdv.infrastructure.persistence.entity.ItemOrderEntity;
 import br.com.pdv.infrastructure.persistence.entity.OrderEntity;
 import br.com.pdv.infrastructure.persistence.entity.OrderStatus;
 import br.com.pdv.infrastructure.persistence.entity.PaymentEntity;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Set;
 import java.util.List;
@@ -16,8 +18,8 @@ public class OrderEntityMapper {
     private final CustomerEntityMapper customerMapper = new CustomerEntityMapper();
     private final PaymentEntityMapper paymentMapper = new PaymentEntityMapper();
     private final ItemOrderEntityMapper itemOrderMapper = new ItemOrderEntityMapper();
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
 
-    // Mapeia OrderEntity para o record Order
     public Order toDomainObj(OrderEntity orderEntity) {
         return new Order(
                 orderEntity.getId(),
@@ -67,5 +69,19 @@ public class OrderEntityMapper {
         return entityStatus;
     }
 
+    public OrdersResponse toResponse(OrderEntity orderEntity) {
+        return new OrdersResponse(
+                orderEntity.getId(),
+                orderEntity.getStatus() != null ? orderEntity.getStatus().getStatus(): null,
+                orderEntity.getCustomer() != null ? orderEntity.getCustomer().getName() : null,
+                orderEntity.getData().format(formatter)
+        );
+    }
+
+    public List<OrdersResponse> toResponseList(List<OrderEntity> orderEntities) {
+        return orderEntities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
 }
 
