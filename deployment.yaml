@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-pdv-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: app-pdv-app
@@ -13,7 +13,29 @@ spec:
         app: app-pdv-app
     spec:
       containers:
-        - name: app-pdv-app-1
-          image: <docker-id>/app-pdv-app-1
+        - name: app-pdv-app
+          image: kaiquemotta1997/app-pdv-app:latest  # Aqui você usa o nome da imagem local
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_APPLICATION_NAME
+              value: "pdv"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/pdv?allowPublicKeyRetrieval=true&useSSL=false"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "root"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "root"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-pdv-service
+spec:
+  selector:
+    app: app-pdv-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort

@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: app-pdv-app
 spec:
-  type: LoadBalancer
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30000  # Você pode escolher um número de porta entre 30000 e 32767
   selector:
     app: app-pdv-app
-  ports:
-    - protocol: TCP
-      name: http-traffic
-      port: 8080
-      targetPort: 8080
