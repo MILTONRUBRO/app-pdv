@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-pdv-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-pdv-app
+  template:
+    metadata:
+      labels:
+        app: app-pdv-app
+    spec:
+      containers:
+        - name: app-pdv-app-1
+          image: <docker-id>/app-pdv-app-1
+          ports:
+            - containerPort: 8080
