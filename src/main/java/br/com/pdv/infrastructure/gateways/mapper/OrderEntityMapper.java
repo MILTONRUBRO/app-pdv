@@ -1,12 +1,15 @@
 package br.com.pdv.infrastructure.gateways.mapper;
 
+import br.com.pdv.domain.entity.ItemOrder;
 import br.com.pdv.domain.entity.Order;
+import br.com.pdv.infrastructure.controllers.response.ItemsOrdersResponse;
 import br.com.pdv.infrastructure.controllers.response.OrdersResponse;
 import br.com.pdv.infrastructure.persistence.entity.ItemOrderEntity;
 import br.com.pdv.infrastructure.persistence.entity.OrderEntity;
 import br.com.pdv.infrastructure.persistence.entity.OrderStatus;
 import br.com.pdv.infrastructure.persistence.entity.PaymentEntity;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Set;
@@ -72,15 +75,36 @@ public class OrderEntityMapper {
     public OrdersResponse toResponse(OrderEntity orderEntity) {
         return new OrdersResponse(
                 orderEntity.getId(),
-                orderEntity.getStatus() != null ? orderEntity.getStatus().getStatus(): null,
-                orderEntity.getCustomer() != null ? orderEntity.getCustomer().getName() : null,
-                orderEntity.getData().format(formatter)
+                orderEntity.getStatus().getStatus(),
+                orderEntity.getCustomer().getName(),
+                formatDate(orderEntity.getData()),
+                formatTime(orderEntity.getData()),
+                mapItems(orderEntity.getItens())
         );
     }
 
     public List<OrdersResponse> toResponseList(List<OrderEntity> orderEntities) {
         return orderEntities.stream()
                 .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    private String formatDate(LocalDateTime dateTime) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dateTime.format(dateFormatter);
+    }
+
+    private String formatTime(LocalDateTime dateTime) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return dateTime.format(timeFormatter);
+    }
+
+    private List<ItemsOrdersResponse> mapItems(List<ItemOrderEntity> items) {
+        return items.stream()
+                .map(item -> new ItemsOrdersResponse(
+                        item.getProduto().getDescription(),
+                        String.valueOf(item.getQuantity())
+                ))
                 .collect(Collectors.toList());
     }
 }

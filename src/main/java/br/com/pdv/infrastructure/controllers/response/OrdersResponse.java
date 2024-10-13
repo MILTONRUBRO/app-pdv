@@ -1,4 +1,8 @@
 package br.com.pdv.infrastructure.controllers.response;
 
-public record OrdersResponse(Long id, String status, String customer, String dataHora) {
+import br.com.pdv.domain.entity.Product;
+
+import java.util.List;
+
+public record OrdersResponse(Long id, String status, String cliente, String data, String hora, List<ItemsOrdersResponse> produtosPedido) {
 }

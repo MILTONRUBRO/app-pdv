@@ -7,8 +7,8 @@ import lombok.ToString;
 public enum OrderStatus {
 
     RECEIVED("Recebido"),
-    PROCESSING("Processando"),
-    COMPLETED("Completado"),
+    PROCESSING("Em Preparação"),
+    COMPLETED("Pronto"),
     FINALIZED("Finalizado");
 
     private final String status;
