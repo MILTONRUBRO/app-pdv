@@ -14,6 +14,7 @@ public class CustomerEntityMapper {
     
     public CustomerEntity customerToEntity(Customer customer) {
     	var customerEntity = new CustomerEntity();
+		customerEntity.setId(customer.id());
     	customerEntity.setDocument(customer.document());
     	customerEntity.setEmail(customer.email());
     	customerEntity.setName(customer.name());
