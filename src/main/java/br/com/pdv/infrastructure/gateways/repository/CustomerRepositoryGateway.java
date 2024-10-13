@@ -31,4 +31,11 @@ public class CustomerRepositoryGateway implements CustomerGateway {
         return customerEntityMapper.entityToCustomer(optionalCustomer.get());
 	}
 
+	@Override
+	public Customer createCustomer(Customer customer) {
+		CustomerEntity customerEntity = customerEntityMapper.customerToEntity(customer);
+		CustomerEntity customerSaved = customerRepository.save(customerEntity);
+		return customerEntityMapper.entityToCustomer(customerSaved);
+	}
+
 }

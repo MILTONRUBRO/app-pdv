@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.pdv.application.gateways.CustomerGateway;
+import br.com.pdv.application.usecase.CreateCustomerInteractor;
 import br.com.pdv.application.usecase.GetCustomerInteractor;
 import br.com.pdv.infrastructure.gateways.mapper.CustomerEntityMapper;
 import br.com.pdv.infrastructure.gateways.repository.CustomerRepositoryGateway;
@@ -17,11 +18,15 @@ public class CustomerConfig {
 		return new GetCustomerInteractor(customerGateway);
 	}
 	
+	@Bean
+	public CreateCustomerInteractor createCustomerInteractor(CustomerGateway customerGateway) {
+		return new CreateCustomerInteractor(customerGateway);
+	}
+	
     @Bean
     CustomerGateway customerGateway(CustomerRepository customerRepository, CustomerEntityMapper customerEntityMapper ) {
         return new CustomerRepositoryGateway(customerRepository, customerEntityMapper);
     }
-
 	
 	@Bean
 	CustomerEntityMapper customerEntityMapper() {
