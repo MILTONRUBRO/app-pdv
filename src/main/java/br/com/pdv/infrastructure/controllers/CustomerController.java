@@ -21,15 +21,21 @@ import lombok.extern.log4j.Log4j2;
 
 @RestController
 @RequestMapping("/customers")
-@AllArgsConstructor
 @Log4j2
 public class CustomerController {
 	
 	private final GetCustomerInteractor getCustomerInteractor;
 	private final CreateCustomerInteractor createCustomerInteractor;
 	private final CustomerEntityMapper customerMapper;
+	
+    public CustomerController(GetCustomerInteractor getCustomerInteractor,
+			CreateCustomerInteractor createCustomerInteractor, CustomerEntityMapper customerMapper) {
+		this.getCustomerInteractor = getCustomerInteractor;
+		this.createCustomerInteractor = createCustomerInteractor;
+		this.customerMapper = customerMapper;
+	}
 
-    @PostMapping
+	@PostMapping
     public ResponseEntity<Void> saveCustomer(@RequestBody CustomerRequest request) {
         log.info("POST Customer Request: {}", request);
         

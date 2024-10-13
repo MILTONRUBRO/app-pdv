@@ -1,5 +1,6 @@
 package br.com.pdv.infrastructure.gateways.repository;
 
+import br.com.pdv.application.exception.NotFoundException;
 import br.com.pdv.application.gateways.CustomerGateway;
 import br.com.pdv.application.gateways.OrderGateway;
 import br.com.pdv.domain.entity.Customer;
@@ -11,6 +12,7 @@ import br.com.pdv.infrastructure.persistence.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Log4j2
 public class OrderRepositoryGateway implements OrderGateway {
@@ -35,6 +37,19 @@ public class OrderRepositoryGateway implements OrderGateway {
         orderEntity = orderRepository.save(orderEntity);
         return orderEntityMapper.toDomainObj(orderEntity);
     }
+
+	@Override
+	public void updateOrderStatus(Long idOrder, String status) {
+		Optional<OrderEntity> optionalOrder = orderRepository.findById(idOrder);
+		
+        if (!optionalOrder.isPresent()) {
+            throw new NotFoundException("Pedido não encontrado");
+        }
+        
+        optionalOrder.get().setStatus(OrderStatus.fromString(status));
+        
+        orderRepository.save(optionalOrder.get());
+	}
 
 
 }

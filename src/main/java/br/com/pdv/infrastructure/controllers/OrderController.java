@@ -2,11 +2,18 @@ package br.com.pdv.infrastructure.controllers;
 
 
 import br.com.pdv.application.usecase.OrderCreateInteractor;
+import br.com.pdv.application.usecase.UpdateOrderStatusInteractor;
 import br.com.pdv.domain.entity.Order;
 import br.com.pdv.infrastructure.controllers.mappers.OrderDTOMapper;
 import br.com.pdv.infrastructure.controllers.request.OrderRequest;
+import br.com.pdv.infrastructure.controllers.request.UpdateOrderStatusRequest;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +28,16 @@ public class OrderController {
 
     private final OrderDTOMapper orderDTOMapper;
     private final OrderCreateInteractor createOrderUseCase;
+    private final UpdateOrderStatusInteractor updateOrderStatusInteractor;
+    
+    public OrderController(OrderDTOMapper orderDTOMapper, OrderCreateInteractor createOrderUseCase,
+			UpdateOrderStatusInteractor updateOrderStatusInteractor) {
+		this.orderDTOMapper = orderDTOMapper;
+		this.createOrderUseCase = createOrderUseCase;
+		this.updateOrderStatusInteractor = updateOrderStatusInteractor;
+	}
 
-    public OrderController(OrderDTOMapper orderDTOMapper, OrderCreateInteractor createOrderUseCase) {
-        this.orderDTOMapper = orderDTOMapper;
-        this.createOrderUseCase = createOrderUseCase;
-    }
-
-    @PostMapping
+	@PostMapping
     public ResponseEntity<Void> createOrder(@RequestBody OrderRequest request) {
         log.info("POST Order Request: {}", request);
         Order order = orderDTOMapper.toProduct(request);
@@ -35,4 +45,11 @@ public class OrderController {
         URI location = URI.create("/orders/" + orderCreated.id());
         return ResponseEntity.created(location).build();
     }
+    
+	@PatchMapping("/{idOrder}")
+	public ResponseEntity<Void> updateOrderStatus(@PathVariable Long idOrder, @RequestBody @Valid UpdateOrderStatusRequest updateOrderStatusRequest) {
+		log.info("PATCH update status for Order ID: {}", idOrder);
+		updateOrderStatusInteractor.updateOrderStatus(idOrder, updateOrderStatusRequest.status());
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }
