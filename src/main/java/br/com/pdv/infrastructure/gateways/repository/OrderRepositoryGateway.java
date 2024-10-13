@@ -71,6 +71,17 @@ public class OrderRepositoryGateway implements OrderGateway {
         ));
     }
 
+	@Override
+	public String getOrderPaymentSatus(Long idOrder) {
+		Optional<OrderEntity> optionalOrder = orderRepository.findById(idOrder);
+        
+		if (!optionalOrder.isPresent()) {
+            throw new NotFoundException("Pedido não encontrado");
+        }
+		
+		return optionalOrder.get().getPaymentStatus().getStatus();
+	}
+
 
     private Customer findOrCreateCustomer(Order order) {
         return customerGateway.findByDocumentForOrder(order.customer().document())

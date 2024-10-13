@@ -3,6 +3,7 @@ package br.com.pdv.main;
 import br.com.pdv.application.gateways.CustomerGateway;
 import br.com.pdv.application.gateways.ItemOrderGateway;
 import br.com.pdv.application.gateways.OrderGateway;
+import br.com.pdv.application.usecase.GetOrderPaymentSatusInteractor;
 import br.com.pdv.application.usecase.OrderCreateInteractor;
 import br.com.pdv.application.usecase.UpdateOrderStatusInteractor;
 import br.com.pdv.infrastructure.controllers.mappers.OrderDTOMapper;
@@ -25,7 +26,12 @@ public class OrderConfig {
     UpdateOrderStatusInteractor updateOrderStatusInteractor(OrderGateway orderGateway) {
     	return new UpdateOrderStatusInteractor(orderGateway);
     }
-
+    
+    @Bean
+    GetOrderPaymentSatusInteractor getOrderPaymentSatusInteractor(OrderGateway orderGateway) {
+    	return new GetOrderPaymentSatusInteractor(orderGateway);
+    }
+    
     @Bean
     OrderDTOMapper orderDTOMapper() {
         return new OrderDTOMapper();
