@@ -19,10 +19,6 @@ public class OrderEntityMapper {
 
     // Mapeia OrderEntity para o record Order
     public Order toDomainObj(OrderEntity orderEntity) {
-        if (orderEntity == null) {
-            return null;
-        }
-
         return new Order(
                 orderEntity.getId(),
                 orderEntity.getData(),
@@ -41,9 +37,7 @@ public class OrderEntityMapper {
     }
 
     public OrderEntity toEntity(Order order) {
-        if (order == null) {
-            return null;
-        }
+
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setId(order.id());
         orderEntity.setData(order.data());
@@ -59,13 +53,13 @@ public class OrderEntityMapper {
                     .collect(Collectors.toSet());
             orderEntity.setPayments(paymentEntities);
         }
-        if (Objects.nonNull(order.itemsOrder())) {
-
-            List<ItemOrderEntity> itemOrderEntities = order.itemsOrder().stream()
-                    .map(itemOrderMapper::toEntity)
-                    .collect(Collectors.toList());
-            orderEntity.setItens(itemOrderEntities);
-        }
+//        if (Objects.nonNull(order.itemsOrder())) {
+//
+//            List<ItemOrderEntity> itemOrderEntities = order.itemsOrder().stream()
+//                    .map(itemOrderMapper::toEntity)
+//                    .collect(Collectors.toList());
+//            orderEntity.setItens(itemOrderEntities);
+//        }
         return orderEntity;
     }
 

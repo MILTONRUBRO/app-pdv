@@ -5,7 +5,7 @@ import br.com.pdv.infrastructure.controllers.request.ItemOrderRequest;
 
 public class ItemOrderDTOMapper {
 
-    public ItemOrder toItemOder(ItemOrderRequest request) {
+    public ItemOrder toItemOrder(ItemOrderRequest request) {
         return new ItemOrder(
                 request.id(),
                 request.orderId(),

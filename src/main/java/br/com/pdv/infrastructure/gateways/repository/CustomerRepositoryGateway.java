@@ -32,10 +32,21 @@ public class CustomerRepositoryGateway implements CustomerGateway {
 	}
 
 	@Override
+	public Optional<Customer> findByDocumentForOrder(String document) {
+		Optional<CustomerEntity> customerEntityOptional = customerRepository.findByDocument(document);
+		return customerEntityMapper.toDomainOptional(customerEntityOptional);
+	}
+
+	@Override
 	public Customer createCustomer(Customer customer) {
 		CustomerEntity customerEntity = customerEntityMapper.customerToEntity(customer);
-		CustomerEntity customerSaved = customerRepository.save(customerEntity);
+		CustomerEntity customerSaved = customerRepository.saveAndFlush(customerEntity);
 		return customerEntityMapper.entityToCustomer(customerSaved);
 	}
 
+	@Override
+	public Long nextCustomerId() {
+		Long maxId = customerRepository.findMaxId();
+		return (maxId == null) ? 1 : maxId + 1;
+	}
 }

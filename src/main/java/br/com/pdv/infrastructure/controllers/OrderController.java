@@ -3,9 +3,12 @@ package br.com.pdv.infrastructure.controllers;
 
 import br.com.pdv.application.usecase.OrderCreateInteractor;
 import br.com.pdv.application.usecase.UpdateOrderStatusInteractor;
+import br.com.pdv.domain.entity.ItemOrder;
 import br.com.pdv.domain.entity.Order;
+import br.com.pdv.infrastructure.controllers.mappers.ItemOrderDTOMapper;
 import br.com.pdv.infrastructure.controllers.mappers.OrderDTOMapper;
 import br.com.pdv.infrastructure.controllers.request.OrderRequest;
+import br.com.pdv.infrastructure.controllers.request.OrderWithItemsRequest;
 import br.com.pdv.infrastructure.controllers.request.UpdateOrderStatusRequest;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -40,7 +44,7 @@ public class OrderController {
 	@PostMapping
     public ResponseEntity<Void> createOrder(@RequestBody OrderRequest request) {
         log.info("POST Order Request: {}", request);
-        Order order = orderDTOMapper.toProduct(request);
+        Order order = orderDTOMapper.toOrder(request);
         Order orderCreated = createOrderUseCase.createOrder(order);
         URI location = URI.create("/orders/" + orderCreated.id());
         return ResponseEntity.created(location).build();
@@ -51,5 +55,14 @@ public class OrderController {
 		log.info("PATCH update status for Order ID: {}", idOrder);
 		updateOrderStatusInteractor.updateOrderStatus(idOrder, updateOrderStatusRequest.status());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@PostMapping("/checkout")
+	public ResponseEntity<Void> checkout(@RequestBody OrderWithItemsRequest request) {
+		log.info("POST Checkout Request: {}", request);
+		Order order = orderDTOMapper.toOrderList(request);
+		Order orderCreated = createOrderUseCase.createOrder(order);
+		URI location = URI.create("/orders/" + orderCreated.id());
+		return ResponseEntity.created(location).build();
 	}
 }

@@ -29,7 +29,7 @@ public class ItemOrderController {
     @PostMapping
     public ResponseEntity<Void> addItem(@RequestBody ItemOrderRequest request) {
         log.info("POST AddItem Request: {}", request);
-        ItemOrder itemOrder = itemOrderDTOMapper.toItemOder(request);
+        ItemOrder itemOrder = itemOrderDTOMapper.toItemOrder(request);
         addItemOrderUseCase.addItemOrder(itemOrder);
         return ResponseEntity.noContent().build();
     }

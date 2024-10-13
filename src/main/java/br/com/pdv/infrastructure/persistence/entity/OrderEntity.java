@@ -46,20 +46,20 @@ public class OrderEntity {
     private Set<PaymentEntity> payments;
 
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrderEntity> itens;
 
-    @Override
-    public String toString() {
-
-        return "Order{" +
-                "id=" + id +
-                ", data=" + data +
-                ", status=" + status +
-                ", totalValue=" + totalValue +
-                ", customer=" + customer.getId() +
-                ", payments=" + payments +
-                ", itens=" + itens +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//
+//        return "Order{" +
+//                "id=" + id +
+//                ", data=" + data +
+//                ", status=" + status +
+//                ", totalValue=" + totalValue +
+//                ", customer=" + customer.getId() +
+//                ", payments=" + payments +
+//                ", itens=" + itens +
+//                '}';
+//    }
 }

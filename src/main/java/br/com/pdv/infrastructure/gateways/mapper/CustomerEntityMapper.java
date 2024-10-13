@@ -4,6 +4,8 @@ import br.com.pdv.domain.entity.Customer;
 import br.com.pdv.infrastructure.controllers.request.CustomerRequest;
 import br.com.pdv.infrastructure.persistence.entity.CustomerEntity;
 
+import java.util.Optional;
+
 public class CustomerEntityMapper {
 	
     public Customer entityToCustomer(CustomerEntity customerEntity) {
@@ -26,4 +28,7 @@ public class CustomerEntityMapper {
 		return new Customer(null, request.name(), request.email(), request.document());
 	}
 
+	public Optional<Customer> toDomainOptional(Optional<CustomerEntity> entity) {
+		return entity.map(this::entityToCustomer);
+	}
 }
