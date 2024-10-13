@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-pdv-app
 spec:
-  replicas: 1
+  replicas: 2  # Alterar conforme necessário para ter um número mínimo de réplicas
   selector:
     matchLabels:
       app: app-pdv-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app-pdv-app
-          image: kaiquemotta1997/app-pdv-app:latest  # Aqui você usa o nome da imagem local
+          image: kaiquemotta1997/app-pdv-app:latest
           ports:
             - containerPort: 8080
           env:
@@ -26,6 +26,26 @@ spec:
               value: "root"
             - name: SPRING_DATASOURCE_PASSWORD
               value: "root"
+          resources:  # Definir recursos para CPU e Memória
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          livenessProbe:  # Verifica se o contêiner está vivo (precisa de ajuste baseado na sua aplicação)
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:  # Verifica se o contêiner está pronto para receber tráfego
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
 ---
 apiVersion: v1
 kind: Service
