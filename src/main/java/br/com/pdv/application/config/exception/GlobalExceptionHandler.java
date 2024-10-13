@@ -1,5 +1,6 @@
 package br.com.pdv.application.config.exception;
 
+import br.com.pdv.application.exception.BadRequestException;
 import br.com.pdv.application.exception.InvalidEnumValueException;
 import br.com.pdv.application.exception.InvalidQuantityException;
 import br.com.pdv.application.exception.NotFoundException;
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ApiErrorMessage> handleNotFoundException(NotFoundException  ex, WebRequest request) {
+    public ResponseEntity<ApiErrorMessage> handleNotFoundException(NotFoundException ex, WebRequest request) {
         ApiErrorMessage errorResponse = new ApiErrorMessage();
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
@@ -44,4 +45,16 @@ public class GlobalExceptionHandler {
         errorResponse.setPath(request.getDescription(false));
         return ResponseEntity.badRequest().body(errorResponse);
     }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiErrorMessage> badRequestExceptionException(BadRequestException ex, WebRequest request) {
+        ApiErrorMessage errorResponse = new ApiErrorMessage();
+        errorResponse.setMessage(ex.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+        errorResponse.setPath(request.getDescription(false));
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+
 }

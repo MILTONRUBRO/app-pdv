@@ -1,5 +1,6 @@
 package br.com.pdv.infrastructure.gateways.repository;
 
+import br.com.pdv.application.exception.BadRequestException;
 import br.com.pdv.application.exception.InvalidQuantityException;
 import br.com.pdv.application.gateways.ItemOrderGateway;
 import br.com.pdv.application.gateways.ProductGateway;
@@ -27,12 +28,16 @@ public class ItemOrderRepositoryGateway implements ItemOrderGateway {
 
     @Override
     public ItemOrder addItemOrder(ItemOrder itemOrder) {
-        Product product = productGateway.findById(itemOrder.productId());
-        ItemOrderEntity entity = itemOrderEntityMapper.toEntity(itemOrder);
-        this.calculateAndSetTotalValue(product, entity);
-        itemOrderRepository.save(entity);
-        log.info("Item pedido adicionado {}", entity);
-        return itemOrderEntityMapper.toDomainObj(entity);
+        try {
+            Product product = productGateway.findById(itemOrder.productId());
+            ItemOrderEntity entity = itemOrderEntityMapper.toEntity(itemOrder);
+            this.calculateAndSetTotalValue(product, entity);
+            itemOrderRepository.save(entity);
+            log.info("Item pedido adicionado {}", entity);
+            return itemOrderEntityMapper.toDomainObj(entity);
+        } catch (Exception ex) {
+            throw new BadRequestException("Houve um erro na chamada, favor entrar em contato com o TI.");
+        }
     }
 
     private void calculateAndSetTotalValue(Product product, ItemOrderEntity itemOrder) {
