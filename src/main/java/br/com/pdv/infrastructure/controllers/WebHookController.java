@@ -1,5 +1,6 @@
 package br.com.pdv.infrastructure.controllers;
 
+import br.com.pdv.application.usecase.UpdateOrderStatusInteractor;
 import br.com.pdv.domain.entity.WebHook;
 import br.com.pdv.infrastructure.controllers.mappers.WebHookDTOMapper;
 import br.com.pdv.infrastructure.controllers.request.WebHookRequest;
@@ -16,16 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebHookController {
 
     private final WebHookDTOMapper webHookDTOMapper;
+    private final UpdateOrderStatusInteractor updateOrderStatusInteractor;
 
-    public WebHookController(WebHookDTOMapper webHookDTOMapper) {
-        this.webHookDTOMapper = webHookDTOMapper;
-    }
+    public WebHookController(WebHookDTOMapper webHookDTOMapper,
+			UpdateOrderStatusInteractor updateOrderStatusInteractor) {
+		this.webHookDTOMapper = webHookDTOMapper;
+		this.updateOrderStatusInteractor = updateOrderStatusInteractor;
+	}
 
-    @PostMapping
+
+	@PostMapping
     public ResponseEntity<Void> saveProduct(@RequestBody WebHookRequest request) {
         log.info("POST Webhook received Request: {}", request);
         WebHook webHook = webHookDTOMapper.toWebHook(request);
-        //Product product = createProductUseCase.createProduct(productBusinessObj);
+        updateOrderStatusInteractor.updateOrderStatus(webHook.idOrder(), webHook.status());
+        
         return ResponseEntity.noContent().build();
     }
 }
