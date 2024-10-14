@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-pdv-service
+spec:
+  type: NodePort  # Alterado para ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      nodePort: 31113
+  selector:
+    app: app-pdv-app

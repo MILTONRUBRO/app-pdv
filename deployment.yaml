@@ -65,4 +65,4 @@ spec:
               service:
                 name: app-pdv-service  # Altere para o nome correto do serviço
                 port:
-                  number: 8080
+                  number: 80
