@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-pdv-app
 spec:
-  replicas: 2  # Alterar conforme necessário para ter um número mínimo de réplicas
+  replicas: 1  # Alterar conforme necessário para ter um número mínimo de réplicas
   selector:
     matchLabels:
       app: app-pdv-app
@@ -46,33 +46,6 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app-pdv-service
-spec:
-  selector:
-    app: app-pdv-app
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-  type: NodePort
-
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: app-pdv-app
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: app-pdv-app  # Nome do seu Deployment
-  minReplicas: 1  # Número mínimo de réplicas
-  maxReplicas: 10  # Número máximo de réplicas
-  targetCPUUtilizationPercentage: 20  # A meta de utilização de CPU em porcentagem
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
