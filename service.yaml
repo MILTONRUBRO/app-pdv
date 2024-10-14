@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: app-pdv-app
 spec:
-  type: NodePort
+  type: ClusterIP  # Alterado para ClusterIP
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30000  # Você pode escolher um número de porta entre 30000 e 32767
   selector:
     app: app-pdv-app

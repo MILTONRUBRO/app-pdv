@@ -59,3 +59,37 @@ spec:
       port: 8080
       targetPort: 8080
   type: NodePort
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app-pdv-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-pdv-app  # Nome do seu Deployment
+  minReplicas: 1  # Número mínimo de réplicas
+  maxReplicas: 10  # Número máximo de réplicas
+  targetCPUUtilizationPercentage: 20  # A meta de utilização de CPU em porcentagem
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-pdv-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: app-pdv-service  # Altere para o nome correto do serviço
+                port:
+                  number: 8080
