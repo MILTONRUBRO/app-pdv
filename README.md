@@ -160,3 +160,18 @@ kubectl delete ingress app-pdv-app-ingress
    helm install app-pdv-0.1.0.tgz --generate-name
    ```
 
+## Instruções para Execução da API
+
+Para executar as APIs, siga os passos abaixo:
+
+1. **Cadastrar Cliente**: Execute o serviço para cadastrar um cliente, que já vem previamente preenchido no Swagger.
+
+2. **Cadastrar Produto**: Em seguida, chame o serviço para cadastrar um produto.
+
+3. **Checkout de Vendas**: Depois, chame o endpoint POST para o checkout de vendas. O pedido será criado com o status "Recebido".
+
+4. **Atualizar Status para Preparação**: Para que o pedido mude para o status "Em Preparação", é necessário que nosso webhook seja acionado. Assim que o webhook for acionado, o pedido automaticamente entrará nesse status.
+
+5. **Finalizar Pedido**: Para dar o pedido como pronto, precisamos chamar o serviço de atualização de status.
+
+
