@@ -1,4 +1,16 @@
 package br.com.pdv.infrastructure.controllers.request;
 
-public record WebHookRequest (String status, Long idOrder){
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record WebHookRequest(
+        @Schema(description = "Status of the order",
+                example = "COMPLETED",
+                required = true)
+        String status,
+
+        @Schema(description = "ID of the order",
+                example = "1",
+                required = true)
+        Long idOrder
+) {
 }
