@@ -17,3 +17,24 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0  # Sem tempo de espera para escalar para cima
+      selectPolicy: MaxPolicySelect
+      policies:
+        - type: Pods
+          value: 4
+          periodSeconds: 60  # Permite aumentar até 4 pods em 60 segundos
+        - type: Percent
+          value: 100
+          periodSeconds: 60  # Permite aumentar em 100% do número atual de pods a cada 60 segundos
+    scaleDown:
+      stabilizationWindowSeconds: 300  # Espera 5 minutos antes de reduzir pods
+      selectPolicy: MinPolicySelect
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 300  # Reduz no máximo 1 pod a cada 5 minutos
+        - type: Percent
+          value: 10
+          periodSeconds: 300  # Reduz no máximo 10% do número atual de pods a cada 5 minutos
