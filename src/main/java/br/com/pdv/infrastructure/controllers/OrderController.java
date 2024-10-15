@@ -13,6 +13,8 @@ import br.com.pdv.infrastructure.controllers.request.OrderRequest;
 import br.com.pdv.infrastructure.controllers.request.OrderWithItemsRequest;
 import br.com.pdv.infrastructure.controllers.request.UpdateOrderStatusRequest;
 import br.com.pdv.infrastructure.controllers.response.OrdersResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
@@ -43,6 +45,12 @@ public class OrderController {
 		this.getAllOrdersOrdenedUseCase = getAllOrdersOrdenedUseCase;
 	}
 
+	@Operation(summary = "Create a new order",
+			description = "Creates a new order based on the provided document number.",
+			responses = {
+					@ApiResponse(responseCode = "201", description = "Order created successfully"),
+					@ApiResponse(responseCode = "400", description = "Invalid input")
+			})
 	@PostMapping
 	public ResponseEntity<Void> createOrder(@RequestBody OrderRequest request) {
 		log.info("POST Order Request: {}", request);
@@ -52,6 +60,13 @@ public class OrderController {
 		return ResponseEntity.created(location).build();
 	}
 
+	@Operation(summary = "Update the status of an order",
+			description = "Updates the status of the specified order based on the provided status.",
+			responses = {
+					@ApiResponse(responseCode = "204", description = "Order status updated successfully"),
+					@ApiResponse(responseCode = "404", description = "Order not found"),
+					@ApiResponse(responseCode = "400", description = "Invalid input")
+			})
 	@PatchMapping("/{idOrder}")
 	public ResponseEntity<Void> updateOrderStatus(@PathVariable Long idOrder, @RequestBody @Valid UpdateOrderStatusRequest updateOrderStatusRequest) {
 		log.info("PATCH update status for Order ID: {}", idOrder);
@@ -59,6 +74,12 @@ public class OrderController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@Operation(summary = "Checkout and create an order",
+			description = "Creates an order with the specified items based on the provided document number.",
+			responses = {
+					@ApiResponse(responseCode = "201", description = "Order created successfully"),
+					@ApiResponse(responseCode = "400", description = "Invalid input")
+			})
 	@PostMapping("/checkout")
 	public ResponseEntity<Void> checkout(@RequestBody OrderWithItemsRequest request) {
 		log.info("POST Checkout Request: {}", request);

@@ -4,6 +4,10 @@ import br.com.pdv.application.usecase.ListProductsByCategoryIdInteractor;
 import br.com.pdv.domain.entity.Product;
 import br.com.pdv.infrastructure.controllers.mappers.ProductDTOMapper;
 import br.com.pdv.infrastructure.controllers.response.ProductsByCategoryIdResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +31,13 @@ public class CategoryController {
         this.productDTOMapper = productDTOMapper;
     }
 
+    @Operation(summary = "List products by category ID",
+            description = "Retrieves a list of products that belong to the given category ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "List of products retrieved successfully",
+                            content = @Content(schema = @Schema(implementation = ProductsByCategoryIdResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Category not found")
+            })
     @GetMapping("/{categoryId}/products")
     public ResponseEntity<ProductsByCategoryIdResponse> listProductsByCategory(@PathVariable Long categoryId) {
         log.info("List Products by category ID: {}", categoryId);
