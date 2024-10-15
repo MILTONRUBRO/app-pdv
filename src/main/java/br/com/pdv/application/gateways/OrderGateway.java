@@ -8,6 +8,7 @@ import java.util.List;
 public interface OrderGateway {
     Order createOrder(Order order);
     void updateOrderStatus(Long idOrder, String status);
+    void updateOrderPayments(Long idOrder, String status);
     String getOrderPaymentSatus(Long idOrder);
     List<OrdersResponse> getAllOrdersOrdenedInteractor();
 }

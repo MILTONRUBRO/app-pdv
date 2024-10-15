@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public record WebHookRequest(
         @Schema(description = "Status of the order",
-                example = "COMPLETED",
+                example = "Recebido",
                 required = true)
         String status,
 

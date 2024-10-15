@@ -11,6 +11,7 @@ import br.com.pdv.infrastructure.controllers.response.OrdersResponse;
 import br.com.pdv.infrastructure.gateways.mapper.OrderEntityMapper;
 import br.com.pdv.infrastructure.persistence.entity.OrderEntity;
 import br.com.pdv.infrastructure.persistence.entity.OrderStatus;
+import br.com.pdv.infrastructure.persistence.entity.PaymentStatus;
 import br.com.pdv.infrastructure.persistence.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +57,22 @@ public class OrderRepositoryGateway implements OrderGateway {
             throw new NotFoundException("Pedido não encontrado");
         }
         optionalOrder.get().setStatus(OrderStatus.fromString(status));
+        orderRepository.save(optionalOrder.get());
+    }
+
+    @Override
+    public void updateOrderPayments(Long idOrder, String status) {
+
+        Optional<OrderEntity> optionalOrder = orderRepository.findById(idOrder);
+        if (!optionalOrder.isPresent()) {
+            throw new NotFoundException("Pedido não encontrado");
+        }
+        optionalOrder.get().setStatus(OrderStatus.fromString(status));
+        if(status.equals("Recebido")){
+            optionalOrder.get().setPaymentStatus(PaymentStatus.APPROVED);
+            optionalOrder.get().setStatus(OrderStatus.fromString("Em Preparação"));
+
+        }
         orderRepository.save(optionalOrder.get());
     }
 
