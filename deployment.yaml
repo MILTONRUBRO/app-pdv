@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-pdv-app
 spec:
-  replicas: 1  # Alterar conforme necessário para ter um número mínimo de réplicas
+  replicas: 2  # Alterar conforme necessário para ter um número mínimo de réplicas
   selector:
     matchLabels:
       app: app-pdv-app
@@ -47,22 +47,15 @@ spec:
             periodSeconds: 10
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: v1
+kind: Service
 metadata:
-  name: app-pdv-app-ingress
-  annotations:
-    kubernetes.io/ingress.class: "traefik"
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+  name: app-pdv-service
 spec:
-  rules:
-    - http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: app-pdv-service  # Altere para o nome correto do serviço
-                port:
-                  number: 80
+  selector:
+    app: app-pdv-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort

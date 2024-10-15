@@ -6,7 +6,7 @@ import br.com.pdv.infrastructure.controllers.request.WebHookRequest;
 public class WebHookDTOMapper {
 
     public WebHook toWebHook(WebHookRequest webHookRequest){
-        return new WebHook(webHookRequest.status());
+        return new WebHook(webHookRequest.status(), webHookRequest.idOrder());
     }
 
 }
