@@ -11,7 +11,10 @@ Acesse o Miro com a documentação do projeto:
 ## Tecnologias Utilizadas
 - **Backend:** Java 17, Spring Boot, JPA, Hibernate
 - **Banco de dados:** MySQL
-- **Outras:** Docker
+- **Outras:** Docker,Kubernetes, Minikube
+
+## Desenho Arquitetura Projeto
+![pdv_cloud_jpg](https://github.com/user-attachments/assets/eeb1b960-98c0-4d2a-b4e9-ca43e3ee7c05)
 
 ## Como Executar
 Para executar o projeto com Docker Compose, siga as instruções abaixo:
