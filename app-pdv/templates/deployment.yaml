@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-pdv-app
 spec:
-  replicas: 1  # Alterar conforme necessário para ter um número mínimo de réplicas
+  replicas: 2  # Alterar conforme necessário para ter um número mínimo de réplicas
   selector:
     matchLabels:
       app: app-pdv-app
