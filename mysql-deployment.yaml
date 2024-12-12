@@ -17,7 +17,7 @@ spec:
           image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: root
+              value: s3rp3nt3
             - name: MYSQL_DATABASE
               value: pdv
           ports:
