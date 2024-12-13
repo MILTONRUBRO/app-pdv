@@ -160,6 +160,10 @@ jobs:
       run: |
         echo "Waiting for Development Deployment to be ready..."
         sleep 120  # Ajuste o tempo conforme necessário
+        echo "Checking for nohup.out file..."
+        ls -l nohup.out
+        echo "Checking if application is running on port 8080..."
+        netstat -an | grep 8080
         tail -n 100 nohup.out
 
   deploy-prod:
@@ -180,6 +184,10 @@ jobs:
       run: |
         echo "Waiting for Production Deployment to be ready..."
         sleep 120  # Ajuste o tempo conforme necessário
+        echo "Checking for nohup.out file..."
+        ls -l nohup.out
+        echo "Checking if application is running on port 8080..."
+        netstat -an | grep 8080
         tail -n 100 nohup.out
 
   smoke-test-dev:
