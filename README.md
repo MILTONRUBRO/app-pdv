@@ -1,6 +1,6 @@
 # Tech Challenge - 8SOAT
 
-## Descrição
+## Descrição  
 Este projeto foi desenvolvido como parte do Tech Challenge - 8SOAT pelos alunos Kaique e Milton.  
 O objetivo é gerenciar uma rede de fast food com gerenciamento de produtos e pedidos.
 
