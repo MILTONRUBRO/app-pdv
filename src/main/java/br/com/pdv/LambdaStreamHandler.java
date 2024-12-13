@@ -18,7 +18,7 @@ public class LambdaStreamHandler implements RequestStreamHandler {
         try {
             handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(PdvApplication.class);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao inicializar o handler", e);
+            throw new RuntimeException("Erro ao inicializar o handler f ", e);
         }
     }
 
