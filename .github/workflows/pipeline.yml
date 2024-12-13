@@ -1,193 +1,75 @@
-name: CI/CD
+name: CI/CD Pipeline
 
 on:
   push:
+    branches:
+      - '**'
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_DATABASE: pdv
-          MYSQL_ROOT_PASSWORD: root_password
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
 
-    - name: Wait for MySQL to be ready
-      run: |
-        echo "Waiting for MySQL service to be ready..."
-        for i in {30..0}; do
-          if docker exec $(docker ps -q -f name=mysql) mysqladmin ping -h "127.0.0.1" --silent &> /dev/null; then
-            echo "MySQL is up and running!"
-            break
-          fi
-          echo 'MySQL is unavailable - sleeping'
-          sleep 2
-        done
-        if [ "$i" = 0 ]; then
-          echo "MySQL failed to start in time."
-          exit 1
-        fi
-
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-
-    - name: Build with Maven
-      run: mvn clean install
-      env:
-        SPRING_APPLICATION_NAME: pdv
-        SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/pdv?allowPublicKeyRetrieval=true&useSSL=false
-        SPRING_DATASOURCE_USERNAME: root
-        SPRING_DATASOURCE_PASSWORD: root_password
-        SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
-        SPRING_JPA_HIBERNATE_DDL_AUTO: update
-        SPRING_JPA_SHOW_SQL: false
-        SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
-        SPRING_JPA_PROPERTIES_HIBERNATE_TYPE: trace
-        SPRING_FLYWAY_ENABLE: true
-        SPRING_FLYWAY_LOCATIONS: classpath:db/migration
-        SPRING_FLYWAY_VALIDATE_ON_MIGRATE: true
-        SPRING_FLYWAY_DEFAULT_SCHEMA: pdv
-        LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CORE_ENV: DEBUG
-        MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
-        MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_DATABASE: pdv_test
-          MYSQL_ROOT_PASSWORD: root_password
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    - name: Wait for MySQL to be ready
-      run: |
-        echo "Waiting for MySQL service to be ready..."
-        for i in {30..0}; do
-          if docker exec $(docker ps -q -f name=mysql) mysqladmin ping -h "127.0.0.1" --silent &> /dev/null; then
-            echo "MySQL is up and running!"
-            break
-          fi
-          echo 'MySQL is unavailable - sleeping'
-          sleep 2
-        done
-        if [ "$i" = 0 ]; then
-          echo "MySQL failed to start in time."
-          exit 1
-        fi
-
-    - name: Test with Maven
-      run: mvn test
-      env:
-        SPRING_APPLICATION_NAME: pdv
-        SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/pdv_test?allowPublicKeyRetrieval=true&useSSL=false
-        SPRING_DATASOURCE_USERNAME: root
-        SPRING_DATASOURCE_PASSWORD: root_password
-        SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
-        SPRING_JPA_HIBERNATE_DDL_AUTO: update
-        SPRING_JPA_SHOW_SQL: false
-        SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
-        SPRING_JPA_PROPERTIES_HIBERNATE_TYPE: trace
-        SPRING_FLYWAY_ENABLE: true
-        SPRING_FLYWAY_LOCATIONS: classpath:db/migration
-        SPRING_FLYWAY_VALIDATE_ON_MIGRATE: true
-        SPRING_FLYWAY_DEFAULT_SCHEMA: pdv
-        LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CORE_ENV: DEBUG
-        MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
-        MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+      - name: Build with Maven
+        run: mvn clean install
 
   deploy-dev:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Deploy to Development Environment
-      run: |
-        echo "Deploying to Development Environment"
-        nohup java -jar target/your-application.jar &
+      - name: Deploy to Development Environment
+        run: |
+          echo "Deploying to Development Environment"
+          nohup java -jar target/your-application.jar &
 
-    - name: Wait for Development Deployment to be Ready
-      run: |
-        echo "Waiting for Development Deployment to be ready..."
-        sleep 60
+      - name: Wait for Development Deployment to be Ready
+        run: |
+          echo "Waiting for Development Deployment to be ready..."
+          sleep 60
 
   deploy-prod:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Deploy to Production Environment
-      run: |
-        echo "Deploying to Production Environment"
-        nohup java -jar target/your-application.jar &
+      - name: Deploy to Production Environment
+        run: |
+          echo "Deploying to Production Environment"
+          nohup java -jar target/your-application.jar &
 
-    - name: Wait for Production Deployment to be Ready
-      run: |
-        echo "Waiting for Production Deployment to be ready..."
-        sleep 60
+      - name: Wait for Production Deployment to be Ready
+        run: |
+          echo "Waiting for Production Deployment to be ready..."
+          sleep 60
 
   smoke-test:
     needs: [deploy-dev, deploy-prod]
     runs-on: ubuntu-latest
-
     steps:
-    - name: Perform Smoke Test
-      run: |
-        echo "Performing Smoke Test..."
-        sleep 30
-        curl -f http://localhost:8080/actuator/health || exit 1
-        echo "Smoke Test Passed!"
+      - name: Perform Smoke Test
+        run: |
+          echo "Performing Smoke Test..."
+          sleep 30
+          curl -f http://localhost:8080/actuator/health || exit 1
+          echo "Smoke Test Passed!"
+
+      - name: Additional Logs
+        if: failure()
+        run: |
+          echo "Fetching logs for debugging..."
+          cat nohup.out || echo "No logs found"
