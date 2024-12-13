@@ -116,7 +116,7 @@ jobs:
           echo 'MySQL is unavailable - sleeping'
           sleep 2
         done
-        if [ "$i" = 0 ]; then
+        if [ "$i" = 0]; then
           echo "MySQL failed to start in time."
           exit 1
         fi
@@ -164,6 +164,8 @@ jobs:
         ls -l nohup.out
         echo "Checking if application is running on port 8080..."
         netstat -an | grep 8080
+        echo "Content of nohup.out:"
+        cat nohup.out
         tail -n 100 nohup.out
 
   deploy-prod:
@@ -188,6 +190,8 @@ jobs:
         ls -l nohup.out
         echo "Checking if application is running on port 8080..."
         netstat -an | grep 8080
+        echo "Content of nohup.out:"
+        cat nohup.out
         tail -n 100 nohup.out
 
   smoke-test-dev:
