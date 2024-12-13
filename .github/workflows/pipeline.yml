@@ -152,7 +152,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Deploy to Development Environment
-      run: echo "Deploying to Development Environment"
+      run: |
+        echo "Deploying to Development Environment"
+        # Comando para iniciar a aplicação
+        nohup java -jar target/your-application.jar &
 
   deploy-prod:
     needs: test
@@ -164,17 +167,23 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Deploy to Production Environment
-      run: echo "Deploying to Production Environment"
+      run: |
+        echo "Deploying to Production Environment"
+        # Comando para iniciar a aplicação
+        nohup java -jar target/your-application.jar &
 
   smoke-test:
     needs: [deploy-dev, deploy-prod]
     runs-on: ubuntu-latest
 
     steps:
+    - name: Wait for Deployment to be Ready
+      run: |
+        echo "Waiting for Deployment to be ready..."
+        sleep 60
+
     - name: Perform Smoke Test
       run: |
         echo "Performing Smoke Test..."
-        # Adicione aqui comandos ou scripts para realizar os smoke tests
-        # Por exemplo, você pode usar curl para testar endpoints da API
         curl -f http://localhost:8080/health || exit 1
         echo "Smoke Test Passed!"
