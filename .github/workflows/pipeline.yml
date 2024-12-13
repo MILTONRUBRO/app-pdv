@@ -13,7 +13,7 @@ jobs:
         image: mysql:8
         env:
           MYSQL_DATABASE: pdv
-          MYSQL_ROOT_PASSWORD: root-senha
+          MYSQL_ROOT_PASSWORD: s3rp3nt3
         ports:
           - 3306:3306
         options: >-
@@ -36,7 +36,7 @@ jobs:
       run: |
         echo "Waiting for MySQL service to be ready..."
         for i in {30..0}; do
-          if docker exec $(docker ps -q -f name=mysql) mysqladmin ping --silent &> /dev/null; then
+          if docker exec $(docker ps -q -f name=mysql) mysqladmin ping -h "127.0.0.1" --silent &> /dev/null; then
             echo "MySQL is up and running!"
             break
           fi
