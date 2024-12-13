@@ -165,3 +165,16 @@ jobs:
 
     - name: Deploy to Production Environment
       run: echo "Deploying to Production Environment"
+
+  smoke-test:
+    needs: [deploy-dev, deploy-prod]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Perform Smoke Test
+      run: |
+        echo "Performing Smoke Test..."
+        # Adicione aqui comandos ou scripts para realizar os smoke tests
+        # Por exemplo, você pode usar curl para testar endpoints da API
+        curl -f http://localhost:8080/health || exit 1
+        echo "Smoke Test Passed!"
