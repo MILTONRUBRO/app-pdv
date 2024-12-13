@@ -154,7 +154,7 @@ jobs:
     - name: Deploy to Development Environment
       run: |
         echo "Deploying to Development Environment"
-        nohup java -jar target/your-application.jar &
+        nohup java -jar target/your-application.jar > nohup.out 2>&1 &
 
     - name: Wait for Development Deployment to be Ready
       run: |
@@ -174,7 +174,7 @@ jobs:
     - name: Deploy to Production Environment
       run: |
         echo "Deploying to Production Environment"
-        nohup java -jar target/your-application.jar &
+        nohup java -jar target/your-application.jar > nohup.out 2>&1 &
 
     - name: Wait for Production Deployment to be Ready
       run: |
