@@ -77,6 +77,27 @@ jobs:
         MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
         MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
 
+    - name: Test with Maven
+      run: mvn test
+      env:
+        SPRING_APPLICATION_NAME: pdv
+        SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/pdv?allowPublicKeyRetrieval=true&useSSL=false
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: s3rp3nt3
+        SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+        SPRING_JPA_HIBERNATE_DDL_AUTO: update
+        SPRING_JPA_SHOW_SQL: false
+        SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
+        SPRING_JPA_PROPERTIES_HIBERNATE_TYPE: trace
+        SPRING_FLYWAY_ENABLE: true
+        SPRING_FLYWAY_LOCATIONS: classpath:db/migration
+        SPRING_FLYWAY_VALIDATE_ON_MIGRATE: true
+        SPRING_FLYWAY_DEFAULT_SCHEMA: pdv
+        LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CORE_ENV: DEBUG
+        MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
+        MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+
   deploy-dev:
     needs: build
     runs-on: ubuntu-latest
