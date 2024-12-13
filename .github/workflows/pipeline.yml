@@ -154,7 +154,6 @@ jobs:
     - name: Deploy to Development Environment
       run: |
         echo "Deploying to Development Environment"
-        # Comando para iniciar a aplicação
         nohup java -jar target/your-application.jar &
 
   deploy-prod:
@@ -169,21 +168,38 @@ jobs:
     - name: Deploy to Production Environment
       run: |
         echo "Deploying to Production Environment"
-        # Comando para iniciar a aplicação
         nohup java -jar target/your-application.jar &
 
-  smoke-test:
-    needs: [deploy-dev, deploy-prod]
+  smoke-test-dev:
+    needs: deploy-dev
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
 
     steps:
-    - name: Wait for Deployment to be Ready
+    - name: Wait for Development Deployment to be Ready
       run: |
-        echo "Waiting for Deployment to be ready..."
-        sleep 60
+        echo "Waiting for Development Deployment to be ready..."
+        sleep 60  # Ajuste o tempo conforme necessário
 
-    - name: Perform Smoke Test
+    - name: Perform Smoke Test on Development Environment
       run: |
-        echo "Performing Smoke Test..."
+        echo "Performing Smoke Test on Development Environment..."
         curl -f http://localhost:8080/health || exit 1
-        echo "Smoke Test Passed!"
+        echo "Development Smoke Test Passed!"
+
+  smoke-test-prod:
+    needs: deploy-prod
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Wait for Production Deployment to be Ready
+      run: |
+        echo "Waiting for Production Deployment to be ready..."
+        sleep 60  # Ajuste o tempo conforme necessário
+
+    - name: Perform Smoke Test on Production Environment
+      run: |
+        echo "Performing Smoke Test on Production Environment..."
+        curl -f http://localhost:8080/health || exit 1
+        echo "Production Smoke Test Passed!"
