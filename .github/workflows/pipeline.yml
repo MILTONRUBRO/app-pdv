@@ -77,18 +77,26 @@ jobs:
         MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
         MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
 
-  deploy:
+  deploy-dev:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Deploy to Dev
-      if: github.ref != 'refs/heads/main'
+    - name: Deploy to Development Environment
       run: echo "Deploying to Development Environment"
 
-    - name: Deploy to Prod
-      if: github.ref == 'refs/heads/main'
+  deploy-prod:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to Production Environment
       run: echo "Deploying to Production Environment"
