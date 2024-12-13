@@ -77,6 +77,20 @@ jobs:
         MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
         MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
 
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
     - name: Test with Maven
       run: mvn test
       env:
@@ -99,7 +113,7 @@ jobs:
         MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
 
   deploy-dev:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
 
@@ -111,7 +125,7 @@ jobs:
       run: echo "Deploying to Development Environment"
 
   deploy-prod:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
