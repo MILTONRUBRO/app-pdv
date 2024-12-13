@@ -159,7 +159,8 @@ jobs:
     - name: Wait for Development Deployment to be Ready
       run: |
         echo "Waiting for Development Deployment to be ready..."
-        sleep 60  # Ajuste o tempo conforme necessário
+        sleep 120  # Ajuste o tempo conforme necessário
+        tail -n 100 nohup.out
 
   deploy-prod:
     needs: test
@@ -178,7 +179,8 @@ jobs:
     - name: Wait for Production Deployment to be Ready
       run: |
         echo "Waiting for Production Deployment to be ready..."
-        sleep 60  # Ajuste o tempo conforme necessário
+        sleep 120  # Ajuste o tempo conforme necessário
+        tail -n 100 nohup.out
 
   smoke-test-dev:
     needs: deploy-dev
