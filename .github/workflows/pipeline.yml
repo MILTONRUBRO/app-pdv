@@ -30,14 +30,23 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'  # Adiciona a distribuição aqui
+        distribution: 'temurin'
 
-    - name: Wait for MySQL
+    - name: Wait for MySQL to be ready
       run: |
-        until docker exec mysql mysqladmin ping -h "127.0.0.1" --silent; do
-          echo "Waiting for MySQL to be up..."
-          sleep 3
+        echo "Waiting for MySQL service to be ready..."
+        for i in {30..0}; do
+          if docker exec $(docker ps -q -f name=mysql) mysqladmin ping --silent &> /dev/null; then
+            echo "MySQL is up and running!"
+            break
+          fi
+          echo 'MySQL is unavailable - sleeping'
+          sleep 2
         done
+        if [ "$i" = 0 ]; then
+          echo "MySQL failed to start in time."
+          exit 1
+        fi
 
     - name: Cache Maven packages
       uses: actions/cache@v2
