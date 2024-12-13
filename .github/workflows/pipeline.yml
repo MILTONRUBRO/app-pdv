@@ -189,7 +189,8 @@ jobs:
     - name: Perform Smoke Test on Development Environment
       run: |
         echo "Performing Smoke Test on Development Environment..."
-        curl -f http://localhost:8080/health || exit 1
+        sleep 30  # Ajuste o tempo conforme necessário
+        curl -f http://localhost:8080/actuator/health || exit 1
         echo "Development Smoke Test Passed!"
 
   smoke-test-prod:
@@ -201,5 +202,6 @@ jobs:
     - name: Perform Smoke Test on Production Environment
       run: |
         echo "Performing Smoke Test on Production Environment..."
-        curl -f http://localhost:8080/health || exit 1
+        sleep 30  # Ajuste o tempo conforme necessário
+        curl -f http://localhost:8080/actuator/health || exit 1
         echo "Production Smoke Test Passed!"
