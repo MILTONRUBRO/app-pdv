@@ -13,8 +13,6 @@ jobs:
         image: mysql:8
         env:
           MYSQL_DATABASE: pdv
-          MYSQL_USER: root
-          MYSQL_PASSWORD: s3rp3nt3
           MYSQL_ROOT_PASSWORD: root-senha
         ports:
           - 3306:3306
@@ -66,4 +64,5 @@ jobs:
         SPRING_FLYWAY_VALIDATE_ON_MIGRATE: true
         SPRING_FLYWAY_DEFAULT_SCHEMA: pdv
         LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CORE_ENV: DEBUG
+        MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
         MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
