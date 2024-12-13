@@ -77,15 +77,6 @@ jobs:
         MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
         MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
 
-    - name: List target directory contents after build
-      run: ls -al target
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-artifacts
-        path: target/pdv-0.0.1.jar
-
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -130,12 +121,6 @@ jobs:
           exit 1
         fi
 
-    - name: Download build artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: build-artifacts
-        path: target
-
     - name: Test with Maven
       run: mvn test
       env:
@@ -166,19 +151,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download build artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: build-artifacts
-        path: target
-
-    - name: List target directory contents
-      run: ls -al target
-
     - name: Deploy to Development Environment
       run: |
         echo "Deploying to Development Environment"
-        nohup java -jar target/pdv-0.0.1.jar &
+        nohup java -jar target/your-application.jar &
 
     - name: Wait for Development Deployment to be Ready
       run: |
@@ -194,19 +170,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download build artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: build-artifacts
-        path: target
-
-    - name: List target directory contents
-      run: ls -al target
-
     - name: Deploy to Production Environment
       run: |
         echo "Deploying to Production Environment"
-        nohup java -jar target/pdv-0.0.1.jar &
+        nohup java -jar target/your-application.jar &
 
     - name: Wait for Production Deployment to be Ready
       run: |
