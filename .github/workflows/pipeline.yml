@@ -154,20 +154,12 @@ jobs:
     - name: Deploy to Development Environment
       run: |
         echo "Deploying to Development Environment"
-        nohup java -jar target/your-application.jar > nohup.out 2>&1 &
+        nohup java -jar target/your-application.jar &
 
     - name: Wait for Development Deployment to be Ready
       run: |
         echo "Waiting for Development Deployment to be ready..."
-        sleep 120  # Ajuste o tempo conforme necessário
-        echo "Checking for nohup.out file..."
-        ls -l nohup.out
-        echo "Checking if application is running on port 8080..."
-        netstat -an | grep 8080
-        echo "Content of nohup.out:"
-        cat nohup.out
-        echo "Full logs from nohup.out:"
-        tail -n 100 nohup.out
+        sleep 60  # Ajuste o tempo conforme necessário
 
   deploy-prod:
     needs: test
@@ -181,43 +173,21 @@ jobs:
     - name: Deploy to Production Environment
       run: |
         echo "Deploying to Production Environment"
-        nohup java -jar target/your-application.jar > nohup.out 2>&1 &
+        nohup java -jar target/your-application.jar &
 
     - name: Wait for Production Deployment to be Ready
       run: |
         echo "Waiting for Production Deployment to be ready..."
-        sleep 120  # Ajuste o tempo conforme necessário
-        echo "Checking for nohup.out file..."
-        ls -l nohup.out
-        echo "Checking if application is running on port 8080..."
-        netstat -an | grep 8080
-        echo "Content of nohup.out:"
-        cat nohup.out
-        echo "Full logs from nohup.out:"
-        tail -n 100 nohup.out
+        sleep 60  # Ajuste o tempo conforme necessário
 
-  smoke-test-dev:
-    needs: deploy-dev
+  smoke-test:
+    needs: [deploy-dev, deploy-prod]
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
 
     steps:
-    - name: Perform Smoke Test on Development Environment
+    - name: Perform Smoke Test
       run: |
-        echo "Performing Smoke Test on Development Environment..."
+        echo "Performing Smoke Test..."
         sleep 30  # Ajuste o tempo conforme necessário
         curl -f http://localhost:8080/actuator/health || exit 1
-        echo "Development Smoke Test Passed!"
-
-  smoke-test-prod:
-    needs: deploy-prod
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-    - name: Perform Smoke Test on Production Environment
-      run: |
-        echo "Performing Smoke Test on Production Environment..."
-        sleep 30  # Ajuste o tempo conforme necessário
-        curl -f http://localhost:8080/actuator/health || exit 1
-        echo "Production Smoke Test Passed!"
+        echo "Smoke Test Passed!"
