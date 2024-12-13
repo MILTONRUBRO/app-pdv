@@ -151,6 +151,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: List target directory contents
+      run: ls -al target
+
     - name: Deploy to Development Environment
       run: |
         echo "Deploying to Development Environment"
@@ -169,6 +172,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: List target directory contents
+      run: ls -al target
 
     - name: Deploy to Production Environment
       run: |
