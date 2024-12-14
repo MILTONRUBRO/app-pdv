@@ -127,7 +127,7 @@ jobs:
           SPRING_APPLICATION_NAME: pdv
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/pdv_test?allowPublicKeyRetrieval=true&useSSL=false
           SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: s3rp3nt3
+          SPRING_DATASOURCE_PASSWORD: ddsoaiue1n3124
           SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
           SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
           SPRING_JPA_HIBERNATE_DDL_AUTO: update
