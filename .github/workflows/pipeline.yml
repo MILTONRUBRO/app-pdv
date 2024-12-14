@@ -206,6 +206,11 @@ jobs:
           docker tag api-pdv:latest 820242899810.dkr.ecr.us-east-1.amazonaws.com/api-pdv:latest
           docker push 820242899810.dkr.ecr.us-east-1.amazonaws.com/api-pdv:latest
 
+      - name: Update ECS service
+        run: |
+          echo "Updating ECS service..."
+          aws ecs update-service --cluster cluster-pdv --service pdv-service --force-new-deployment
+
   smoke-test:
     needs: [deploy-dev, deploy-prod]
     runs-on: ubuntu-latest
