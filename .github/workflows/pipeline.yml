@@ -180,6 +180,32 @@ jobs:
           echo "Waiting for Production Deployment to be ready..."
           sleep 60  # Ajuste o tempo conforme necessário
 
+  deploy-aws:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'  # Apenas execute em main
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: us-east-1
+
+      - name: Connecting to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t api-pdv:latest .
+          docker tag api-pdv:latest 820242899810.dkr.ecr.us-east-1.amazonaws.com/api-pdv:latest
+          docker push 820242899810.dkr.ecr.us-east-1.amazonaws.com/api-pdv:latest
+
   smoke-test:
     needs: [deploy-dev, deploy-prod]
     runs-on: ubuntu-latest
