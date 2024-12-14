@@ -183,7 +183,7 @@ jobs:
   deploy-aws:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'  # Apenas execute em main
+    if: github.ref == 'refs/heads/main'  # Apenas execute em main
 
     steps:
       - name: Checkout code
