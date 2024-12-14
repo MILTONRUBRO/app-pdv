@@ -86,7 +86,7 @@ jobs:
         image: mysql:8
         env:
           MYSQL_DATABASE: pdv_test
-          MYSQL_ROOT_PASSWORD: s3rp3nt3
+          MYSQL_ROOT_PASSWORD: ddsoaiue1n3124
         ports:
           - 3306:3306
         options: >-
