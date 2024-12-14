@@ -12,8 +12,8 @@ jobs:
       mysql:
         image: mysql:8
         env:
-          MYSQL_DATABASE: pdv
-          MYSQL_ROOT_PASSWORD: s3rp3nt3
+          MYSQL_DATABASE: pdv-db.c74wksyeomlz.us-east-1.rds.amazonaws.com
+          MYSQL_ROOT_PASSWORD: ddsoaiue1n3124
         ports:
           - 3306:3306
         options: >-
@@ -183,7 +183,7 @@ jobs:
   deploy-aws:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'  # Apenas execute em main
+    if: github.ref != 'refs/heads/main'  # Apenas execute em main
 
     steps:
       - name: Checkout code
