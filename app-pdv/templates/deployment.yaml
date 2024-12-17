@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-pdv-app
+spec:
+  replicas: 2  # Alterar conforme necessário para ter um número mínimo de réplicas
+  selector:
+    matchLabels:
+      app: app-pdv-app
+  template:
+    metadata:
+      labels:
+        app: app-pdv-app
+    spec:
+      containers:
+        - name: app-pdv-app
+          image: kaiquemotta1997/app-pdv-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_APPLICATION_NAME
+              value: "pdv"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/pdv?allowPublicKeyRetrieval=true&useSSL=false"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "root"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "root"
+          resources:  # Definir recursos para CPU e Memória
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          livenessProbe:  # Verifica se o contêiner está vivo (precisa de ajuste baseado na sua aplicação)
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:  # Verifica se o contêiner está pronto para receber tráfego
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-pdv-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: app-pdv-service  # Altere para o nome correto do serviço
+                port:
+                  number: 8080
